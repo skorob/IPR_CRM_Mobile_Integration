@@ -1,0 +1,2 @@
+connectionfactory.PRCF = amqps://roots-test-accesskey:FWEckLX8sSNCej9VGzEuMif7EXsr957UqT3f0ZFXbA0=@roots-test.servicebus.windows.net
+queue.QUEUE = roots-subscriptionresponsequeue

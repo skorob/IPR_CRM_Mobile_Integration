@@ -1,0 +1,45 @@
+{
+  "ContractResponse": {
+    "SOResponse": {
+      "Operation": "Activate",
+      "TransactionID": "ValueTRXID",
+      "Release": "1.0",
+      "ActorName": "System",
+      "ActorFirstName": "",
+      "ActorCode": "Kune",
+      "Status": "OK",
+      "ReturnMessage": "Completed"
+    },
+    "Operator": {
+      "BillingCode": "TE2B50000045",
+      "OPECode": "TE2OPE00000002"
+    },
+    "Contract": {
+      "Code": "TE2C5134000641",
+      "DefaultAccount": "TE2B50000045",
+      "SubscriberCode": "TE2CUST50540000031",
+      "BeginDate": "2015-05-14T16:01:51",
+      "Offer": {
+        "Code": "ES_PREPAID1_1G",
+        "BillingOfferCode": "ES_PREPAID1_1G",
+        "Type": "PRE",
+        "MNOTariffCode": "",
+        "MNOTariffName": ""
+      },
+      "Subscription": {
+        "Resources": {
+          "Mobiles": {
+            "Mobile": {
+              "MNOId": "5134000641",
+              "PortabilityIN": "false",
+              "SIMSN": "8949226555633779650",
+              "MSISDN": "4399955732627",
+              "IMSI": "262074164560991"
+            }
+          }
+        }
+
+      }
+    }
+  }
+}

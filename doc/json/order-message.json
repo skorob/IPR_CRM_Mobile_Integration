@@ -1,0 +1,46 @@
+{
+  "header": {
+	"messageType": "ORDER",
+	"messageTypeVersion": "1",
+	"correlationId": "b0da7007-0b9a-4fa9-b60d-085d4fce699f",
+	"channelId": "web",
+	"sender": "Magento",
+	"sendTimestamp": "yyyy-MM-ddTHH: mm:ss",
+	"authorization": {
+	  "key": "Key goes here",
+	  "secret": "Secret goes here"
+	}
+  },
+  "body": {
+	"order": {
+	  "orderType": "REGULAR", 		// [REGISTRATION|ACTIVATION|SAMPLE_ACTIVATION]
+	  "orderId": "M123456", 		// Magento orderId
+	  "recruitmentReference": "XYZ", // Optional reference to recruitment
+	  "customer": {
+		"firstName": "John",
+		"lastName": "Doe",
+		"deliveryAddress": {
+		  "street": "Street name",
+		  "city": "City",
+		  "zip": "12345",
+		  "country": "at"
+		},
+		"language":"de"				// Not yet decided if we should use ISO 639-1 (de) or ID= 639-2 (ger/deu)
+	  },
+	  "product": {
+		"id": "42561", 				// Sisteer product ID
+		"msisdn": "0701234567",
+		"activationType": "NEW", 	// [NEW|PORT]
+	  	"domain": "at"				// Not yet decided if we should use ISO "-2 (at) or	ISO ALPHA-3 (aut)
+	  },
+	  "nuvi": { 					// Only relevant if PORT order
+		"currentOperator": "XYZ", 	// Some code mapping to a certain operator
+		"portingCode": "128465" 	// Porting code from Nüvi
+	  }
+	},
+	"event": {
+	  "type": "ORDER_PLACED" 		//event names should be aligned
+	  // Event-specific data
+	}
+  }
+}

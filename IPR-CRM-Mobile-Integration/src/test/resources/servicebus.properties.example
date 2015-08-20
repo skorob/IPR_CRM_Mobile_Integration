@@ -1,0 +1,2 @@
+connectionfactory.SBCF = amqps://proveng-dev-accesskey:78l6BThj3kLoPlXadLRzTJiZ3Yr153MtwT9BGjzNYSs=@proveng-dev-ns.servicebus.windows.net
+topic.TOPIC = roots-ordertopic

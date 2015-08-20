@@ -1,0 +1,84 @@
+{
+  "SubscriptionRequest": {
+    "SORequest": {
+      "Operation": "Create",
+      "TransactionID": "TEST_CIKLUM_fcea12c1-733c-48b3-99c3-2931729d0001",
+      "Release": "1.0",
+      "ActorCode": "AT_WEB"
+    },
+    "Operator": {
+      "BillingCode": "TELE2KBIL",
+      "OPECode": "TE2OPE00000002"
+    },
+    "Person": {
+      "Civility": "MR",
+      "Name": "TestKristian",
+      "FirstName": "KristianTest",
+      "Segment": "OPE",
+      "Email": "Test@Test.com",
+      "Agency": "TE2SIT4350000009",
+      "BirthDate": "1900-01-01T00:00:00",
+      "Address": {
+        "Address1": "102Test",
+        "City": "Barcelona",
+        "PostalCode": "67627",
+        "CountryCode": "ES",
+        "Country": "Spain"
+      }
+    },
+    "Account": {
+      "Label": "TESTRoots",
+      "AccountCurrency": "EUR",
+      "BillModel": "WHOLE",
+      "BillSendType": "EMAIL",
+      "BillingCycle": "BCYCLE_1",
+      "BillingDetails": "false",
+      "BillingLanguage": "es_ES",
+      "TaxCode": "ATVAT_1",
+      "BillingExpire": "0",
+      "BillingType": "1",
+      "DueStart": "30",
+      "Exempted": "YESVAT",
+      "PeriodFavour": "3",
+      "PaymentMode": "BDD",
+      "AgencyCode": "TE2SIT4350000009",
+      "SalesRepCode": "admin"
+    },
+    "Contract": {
+      "Offer": {
+        "Code": "AT_PREPAID1_1G",
+        "BillingOfferCode": "AT_PREPAID1_1G",
+        "Type": "PRE",
+        "MNOTariffCode": "ROOTS_1G",
+        "MNOTariffName": "ROOTS_1G"
+      },
+      "Subscription": {
+        "Resources": {
+          "Mobiles": {
+            "Mobile": {
+              "SIMSN": "8949226144711770101",
+              "MSISDN": "4399955701470",
+              "IMSI": "262999300101010"
+            }
+          }
+        },
+        "Services": {
+          "Service": {
+            "Code": "MOBILESERVICE",
+            "Validity": "MONTHLY",
+            "Tax": "AIVAT_1"
+          }
+        },
+        "Products": {
+          "Product": {
+            "Code": "B_AT_STD_MAIN1G",
+            "BeginDate": "2015-05-30T00:00:00",
+            "EndDate": "2015-06-30T00:00:00",
+            "Tax": "12",
+            "Quantity": "1"
+          }
+        }
+      }
+    }
+  }
+}

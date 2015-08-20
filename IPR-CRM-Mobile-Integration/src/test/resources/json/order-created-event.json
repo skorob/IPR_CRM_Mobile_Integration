@@ -1,0 +1,17 @@
+{
+  "header": {
+    "messageType": "ORDER_CREATED",
+    "messageTypeVersion": "1",
+    "correlationId": "correlationId",
+    "channelId": "web",
+    "sender": "ProvEng",
+    "sendTimestamp": "2015-01-01T12:00:00",
+    "authorization": {
+      "key": "key",
+      "secret": "secret"
+    }
+  },
+  "body": {
+    "orderId": "M123456"
+  }
+}

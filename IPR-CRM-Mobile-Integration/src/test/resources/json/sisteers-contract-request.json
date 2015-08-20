@@ -1,0 +1,44 @@
+{
+  "ContractRequest": {
+
+    "SORequest": {
+      "Operation": "Activate",
+      "TransactionID": "Valuetobefilledtolinktheresponsetothisrequest",
+      "Release": "2.0",
+      "ActorCode": "AT_WEB"
+    },
+    "Operator": {
+      "BillingCode": "TELE2KBIL",
+      "OPECode": "TE2OPE00000002"
+    },
+    "Contract": {
+      "Code": "",
+      "DefaultAccount": "TE2B50000290",
+      "SubscriberCode": "TE2CUST51310000276",
+      "BeginDate": "2015-04-27T12:58:59",
+      "ShipType": "SIMDEV",
+      "Offer": {
+        "Code": "ES_PREPAID1_2G",
+        "BillingOfferCode": "ES_PREPAID1_2G",
+        "Type": "PRE",
+        "MNOTariffCode": "",
+        "MNOTariffName": ""
+      },
+      "Subscription": {
+        "Resources": {
+          "Mobiles": {
+            "Mobile": {
+              "SIMSN": "8949226000633779654",
+              "MSISDN": "4300055000045",
+              "IMSI": "262000064560995",
+              "DeviceBrand": "Apple",
+              "DeviceCode": "iPhone616GB"
+            }
+          }
+        }
+
+      }
+    }
+
+  }
+}

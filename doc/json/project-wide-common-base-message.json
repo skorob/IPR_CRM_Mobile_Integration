@@ -1,0 +1,16 @@
+{
+	"header": {
+		"messageType": "SOME_TYPE",
+		"messageTypeVersion": "1",
+		"correlationId": "b0da7007-0b9a-4fa9-b60d-085d4fce699f",
+		"channelId": "web",
+		"sender": "OE",
+		"sendTimestamp": "yyyy-MM-ddTHH: mm:ss",
+		"authorization": {
+			"key": "Key goes here",
+			"secret": "Secret goes here"
+		}
+	},
+	"body": {
+	}
+}

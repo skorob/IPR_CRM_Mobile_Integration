@@ -1,0 +1,4 @@
+rootProject.name = 'IPR-CRM-Mobile-Integration'
+
+include 'IPR-CRM-Mobile-Integration'
+
