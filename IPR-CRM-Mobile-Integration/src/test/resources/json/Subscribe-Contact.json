@@ -1,0 +1,32 @@
+{
+  "Header": {
+    "Id": "DF52FDEF-483C-42A9-8A31-1B7E25AC00A8",
+    "Timestamp": "2015-08-18T12:55:01.6050852+00:00",
+    "Source": "iprcrmmobile"
+  },
+  "Body": {
+    "Data": [
+      {
+        "FirstName": "Juris",
+        "LastName": "Terauds",
+        "Title": null,
+        "JobTitle": null,
+        "IsPrimary": false,
+        "Channels": [
+          {
+            "Type": "Email",
+            "Value": "juris.terauds@ideaportriga.lv"
+          }
+        ],
+        "Account": {
+          "Id": null,
+          "ExternalId": "A110"
+        },
+        "__externalId": "JT001",
+        "__order": 1,
+        "__type": "AccountContact",
+        "Id": null
+      }
+   ]
+  }
+}

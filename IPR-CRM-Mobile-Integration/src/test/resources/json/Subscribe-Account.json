@@ -1,0 +1,29 @@
+{
+  "Header": {
+    "Id": "CFFE9A9E-379B-46B0-BDA4-FE4A9FCED7DE",
+    "Timestamp": "2015-08-18T12:25:01.6050852+00:00",
+    "Source": "iprcrmmobile"
+  },
+  "Body": {
+    "Data": [
+      {
+        "Name": "IPR",
+        "Description": "from Service Bus",
+        "Country": null,
+        "Type": null,
+        "Industry": null,
+        "EmployeeCount": null,
+        "Channels": [
+          {
+            "Type": "Email",
+            "Value": "juris.terauds@ideaportriga.lv"
+          }
+        ],
+        "__externalId": "A110",
+        "__order": 0,
+        "__type": "Account",
+        "Id": null
+      }
+    ]
+  }
+}

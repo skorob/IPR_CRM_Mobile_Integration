@@ -1,0 +1,33 @@
+{
+  "Header": {
+    "Id": "7E53C805-4F3A-4161-9547-DDF78214986B",
+    "Timestamp": "2015-08-18T12:55:01.6050852+00:00",
+    "Source": "iprcrmmobile"
+  },
+  "Body": {
+    "Data": [
+      {
+        "Subject": "Get Xamarin Contract",
+        "Description": null,
+        "Amount": null,
+        "CloseDate": null,
+        "Probability": null,
+        "SalesStage": "Proposal",
+        "Account": {
+          "Id": null,
+          "ExternalId": "A110"
+        },
+        "Contacts": [
+          {
+            "Id": null,
+            "ExternalId": "JT001"
+          }
+        ],
+        "__externalId": "OP111",
+        "__order": 2,
+        "__type": "Opportunity",
+        "Id": null
+      }
+    ]
+  }
+}

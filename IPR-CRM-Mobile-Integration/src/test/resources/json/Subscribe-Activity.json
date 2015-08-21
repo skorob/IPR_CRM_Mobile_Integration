@@ -1,0 +1,31 @@
+{
+  "Header": {
+    "Id": "91369945-5E02-4641-804A-AFE93AD19281",
+    "Timestamp": "2015-08-18T12:55:01.6050852+00:00",
+    "Source": "iprcrmmobile"
+  },
+  "Body": {
+    "Data": [
+      {
+        "Subject": "Have a quick chat",
+        "Description": null,
+        "PlannedDate": "2015-09-08T15:00:00+00:00",
+        "Type": null,
+        "Status": "Planned",
+        "Opportunity": {
+          "Id": null,
+          "ExternalId": "OP111"
+        },
+        "Contact": {
+          "Id": null,
+          "ExternalId": "JT001"
+        },
+        "Employee": null,
+        "__externalId": "AC111.1",
+        "__order": 3,
+        "__type": "Activity",
+        "Id": null
+      }
+    ]
+  }
+}
