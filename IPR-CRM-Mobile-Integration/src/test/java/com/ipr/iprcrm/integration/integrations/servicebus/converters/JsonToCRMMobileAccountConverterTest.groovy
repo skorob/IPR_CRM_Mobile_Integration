@@ -19,7 +19,7 @@ class JsonToCRMMobileAccountConverterTest extends Specification {
         account!=null
         account.header !=null
         account.body != null
-        account.header.Timestamp.toGMTString() == "18 Aug 2015 09:25:01 GMT"
+        account.header.Timestamp.toGMTString() == "21 Aug 2015 08:12:30 GMT"
         account.header.Id == "CFFE9A9E-379B-46B0-BDA4-FE4A9FCED7DE"
         account.header.Source == "iprcrmmobile"
     }
