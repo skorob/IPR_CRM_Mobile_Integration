@@ -7,11 +7,11 @@ import spock.lang.Specification
 /**
  * Created by os on 8/21/2015.
  */
-class JsonToCRMMobileAccountConverterTest extends Specification {
+class AccountJsonToCRMMobileConverterTest extends Specification {
     def "Convert"() {
         setup:
         def accountGson = Resources.toString(Resources.getResource("json/Subscribe-Account.json"), Charsets.UTF_8)
-        def converter = new JsonToCRMMobileAccountConverter()
+        def converter = new JsonToCRMMobileModelConverter()
         when:
         def account = converter.convert(accountGson)
         then:

@@ -2,11 +2,12 @@ package com.ipr.iprcrm.integration.integrations.servicebus.dto;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 /**
  * Created by os on 8/20/2015.
  */
-public class Account extends CRMMobileModel {
-
-    @SerializedName("Body")
-    public AccountBody body;
+public class ContactBody {
+    @SerializedName("Data")
+    public List<ContactData> data;
 }

@@ -5,11 +5,13 @@ import com.ipr.crystal.commons.procmodels.Processor;
 import com.ipr.crystal.config.EndpointTypeConfiguration;
 import com.ipr.crystal.model.EndpointTypeEntity;
 import com.ipr.crystal.model.messaging.CrystalMessage;
-import com.ipr.iprcrm.integration.integrations.servicebus.converters.AccountCRMMessageToMobileAccountConverter;
-import com.ipr.iprcrm.integration.integrations.servicebus.converters.AccountCRMMobileToGSONConverter;
+import com.ipr.iprcrm.integration.integrations.servicebus.converters.AccountCRMMessageToMobileConverter;
+import com.ipr.iprcrm.integration.integrations.servicebus.converters.CRMMobileModelToJsonConverter;
 import com.ipr.iprcrm.integration.integrations.servicebus.dto.Account;
 import com.ipr.iprcrm.integration.integrations.servicebus.listener.EventListener;
 import com.ipr.iprcrm.integration.integrations.servicebus.listener.OrderListener;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.qpid.amqp_1_0.jms.impl.QueueImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -32,6 +34,7 @@ import java.util.Hashtable;
 //@EnableAspectJAutoProxy(proxyTargetClass = true)
 public class AzureConfiguration {
 
+    Log log = LogFactory.getLog(AzureConfiguration.class);
 
     @Autowired
     EventListener eventListener;
@@ -40,10 +43,10 @@ public class AzureConfiguration {
     OrderListener orderListener;
 
     @Autowired
-    AccountCRMMessageToMobileAccountConverter accountCRMToMobileConverter;
+    AccountCRMMessageToMobileConverter accountCRMToMobileConverter;
 
     @Autowired
-    AccountCRMMobileToGSONConverter accountCRMMobileToGSONConverter;
+    CRMMobileModelToJsonConverter CRMMobileModelToJsonConverter;
 
     @Autowired
     CRMMobileService crmMobileService;
@@ -105,13 +108,17 @@ public class AzureConfiguration {
 
             public void processMessage(CrystalMessage message) {
                 try {
+
+                    log.info("Crystal!CRM_TO_MOBILE_INT_SERVICE. Message is received [ "+message.getPayload()+"]");
                     JAXBContext jc = JAXBContext.newInstance(com.ipr.pa.policyclient.ws.crystal.schemas.Message.class);
 
                     Unmarshaller unmarshaller = jc.createUnmarshaller();
                     com.ipr.pa.policyclient.ws.crystal.schemas.Message m = (com.ipr.pa.policyclient.ws.crystal.schemas.Message) unmarshaller.unmarshal(new StringReader(message.getPayload()));
                     Account account = accountCRMToMobileConverter.convert(m);
-                    String gson = accountCRMMobileToGSONConverter.convert(account);
-                    crmMobileService.send(gson);
+                    String json = CRMMobileModelToJsonConverter.convert(account);
+
+
+                    crmMobileService.send(json);
                 } catch(Exception e) {
                     e.printStackTrace();
                 }
@@ -125,15 +132,6 @@ public class AzureConfiguration {
     public static void main(String [] a) throws Exception {
         AzureConfiguration c = new AzureConfiguration();
         ConnectionFactory cf = c.connectionFactory();
-//        SimpleMessageListenerContainer orderListenerContainer = new SimpleMessageListenerContainer();
-//        orderListenerContainer.setConnectionFactory(cf);
-//        orderListenerContainer.setClientId("OrderListener");
-//        orderListenerContainer.setupMessageListener(new OrderListener());
-//        orderListenerContainer.setDestinationName("in");
-//        orderListenerContainer.setDurableSubscriptionName("???????? ? ??????? ?? ???? ?????????????");
-//        orderListenerContainer.setPubSubDomain(true);
-//        orderListenerContainer.setSessionTransacted(false);
-//        orderListenerContainer.start();
         try {
 
 
@@ -142,13 +140,13 @@ public class AzureConfiguration {
                 Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
                 try {
 
-                    Destination dest = new QueueImpl("in");
+                    Destination dest = new QueueImpl("out");
 
                     MessageProducer producer = session.createProducer(dest);
-                    TextMessage message = session.createTextMessage();
+                    BytesMessage message = session.createBytesMessage();
 
-                    message.setText("This is message ");
-                    System.out.println("Sending message: " + message.getText());
+                    message.writeBytes("{\"Header\":{\"Id\":\"38346E08-4CF5-4AA0-9E45-08B2BDE9136D\",\"Timestamp\":\"2015-08-21T11:17:28.637+00:00\",\"Source\":\"iprcrmmobile\"},\"Body\":{\"Data\":[{\"Name\":\"IPR\",\"Description\":\"from Service Bus\",\"Country\":null,\"Type\":null,\"Industry\":null,\"EmployeeCount\":null,\"Channels\":[{\"Id\":\"CC37FC72-60C4-4354-8B30-BF1F3F20B493\",\"Type\":\"Email\",\"Value\":\"juris.terauds@ideaportriga.lv\"}],\"__externalId\":null,\"__order\":null,\"__type\":\"Account\",\"Id\":\"38346E08-4CF5-4AA0-9E45-08B2BDE9136D\"}]}}".getBytes("UTF-8"));
+                    System.out.println("Sending message: " + message);
                     producer.send(message);
                 } finally {
                     session.close();

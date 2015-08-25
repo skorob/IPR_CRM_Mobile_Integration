@@ -7,20 +7,12 @@ import java.util.List;
 /**
  * Created by os on 8/21/2015.
  */
-public class AccountData {
+public class AccountData extends CRMMobileDataModel {
     public String Name;
     public String Description;
     public String Country;
     public String Type;
     public String Industry;
     public String EmployeeCount;
-    @SerializedName("Channels")
-    public List<Channel> channels;
-    @SerializedName("__externalId")
-    public String externalId;
-    @SerializedName("__order")
-    public String order;
-    @SerializedName("__type")
-    public String type;
-    public String Id;
+
 }

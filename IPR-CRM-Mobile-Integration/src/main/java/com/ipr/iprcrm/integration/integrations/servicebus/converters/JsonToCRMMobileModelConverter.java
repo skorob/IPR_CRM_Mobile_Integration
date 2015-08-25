@@ -10,14 +10,14 @@ import org.springframework.stereotype.Component;
  */
 
 @Component
-public class AccountCRMMobileToGSONConverter {
+public class JsonToCRMMobileModelConverter {
 
-    public AccountCRMMobileToGSONConverter() {
+    public JsonToCRMMobileModelConverter() {
 
     }
 
-    public String convert(Account account) {
+    public <T> T convert(String gson, Class<T> clazz) {
         Gson g = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX").create();
-        return g.toJson(account);
+        return g.fromJson(gson, clazz);
     }
 }

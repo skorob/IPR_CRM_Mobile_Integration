@@ -1,0 +1,11 @@
+package com.ipr.iprcrm.integration.integrations.servicebus.dto;
+
+import com.google.gson.annotations.SerializedName;
+
+/**
+ * Created by os on 8/25/2015.
+ */
+public class CRMMobileModel {
+    @SerializedName("Header")
+    public Header header;
+}
