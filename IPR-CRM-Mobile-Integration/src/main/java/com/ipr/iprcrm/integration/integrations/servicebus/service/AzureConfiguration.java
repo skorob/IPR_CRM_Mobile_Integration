@@ -5,9 +5,7 @@ import com.ipr.crystal.commons.procmodels.Processor;
 import com.ipr.crystal.config.EndpointTypeConfiguration;
 import com.ipr.crystal.model.EndpointTypeEntity;
 import com.ipr.crystal.model.messaging.CrystalMessage;
-import com.ipr.iprcrm.integration.integrations.servicebus.converters.AccountCRMMessageToMobileConverter;
-import com.ipr.iprcrm.integration.integrations.servicebus.converters.CRMMobileModelToJsonConverter;
-import com.ipr.iprcrm.integration.integrations.servicebus.converters.ContactCRMMessageToMobileConverter;
+import com.ipr.iprcrm.integration.integrations.servicebus.converters.*;
 import com.ipr.iprcrm.integration.integrations.servicebus.dto.Account;
 import com.ipr.iprcrm.integration.integrations.servicebus.dto.CRMMobileModel;
 import com.ipr.iprcrm.integration.integrations.servicebus.listener.EventListener;
@@ -54,6 +52,9 @@ public class AzureConfiguration {
 
     @Autowired
     CRMMobileModelToJsonConverter CRMMobileModelToJsonConverter;
+
+    @Autowired
+    OpportunityCRMMessageToMobileConverter opportunityCRMMessageToMobileConverter;
 
     @Autowired
     CRMMobileService crmMobileService;
@@ -134,6 +135,9 @@ public class AzureConfiguration {
                         break;
                         case "PUSH_CONTACT" :
                             crmMobileModel = contactCRMMessageToMobileConverter.convert(m);
+                        break;
+                        case "PUSH_OPPORTUNITY" :
+                            crmMobileModel = opportunityCRMMessageToMobileConverter.convert(m);
                         break;
 
                     }

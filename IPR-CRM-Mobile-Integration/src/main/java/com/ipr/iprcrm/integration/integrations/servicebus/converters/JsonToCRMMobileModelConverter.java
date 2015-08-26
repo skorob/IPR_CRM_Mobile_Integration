@@ -12,12 +12,14 @@ import org.springframework.stereotype.Component;
 @Component
 public class JsonToCRMMobileModelConverter {
 
+    public static final String DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSSX";
+
     public JsonToCRMMobileModelConverter() {
 
     }
 
     public <T> T convert(String gson, Class<T> clazz) {
-        Gson g = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX").create();
+        Gson g = new GsonBuilder().setDateFormat(DATE_FORMAT).create();
         return g.fromJson(gson, clazz);
     }
 }

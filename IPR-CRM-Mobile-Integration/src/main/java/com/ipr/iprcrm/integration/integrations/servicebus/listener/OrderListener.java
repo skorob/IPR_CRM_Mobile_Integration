@@ -4,9 +4,11 @@ import com.google.gson.*;
 import com.ipr.iprcrm.integration.integrations.servicebus.converters.AccountCRMMobileToCRMMessageConverter;
 import com.ipr.iprcrm.integration.integrations.servicebus.converters.ContactCRMMobileToCRMMessageConverter;
 import com.ipr.iprcrm.integration.integrations.servicebus.converters.JsonToCRMMobileModelConverter;
+import com.ipr.iprcrm.integration.integrations.servicebus.converters.OpportunityCRMMobileToCRMMessageConverter;
 import com.ipr.iprcrm.integration.integrations.servicebus.dto.Account;
 import com.ipr.iprcrm.integration.integrations.servicebus.dto.CRMMobileModel;
 import com.ipr.iprcrm.integration.integrations.servicebus.dto.Contact;
+import com.ipr.iprcrm.integration.integrations.servicebus.dto.Opportunity;
 import com.ipr.iprcrm.integration.integrations.servicebus.service.CRMService;
 import com.ipr.pa.policyclient.ws.crystal.schemas.Message;
 import org.apache.commons.logging.Log;
@@ -29,6 +31,9 @@ public class OrderListener implements MessageListener {
 
     @Autowired
     ContactCRMMobileToCRMMessageConverter contactCRMMobileToCRMMessageConverter;
+
+    @Autowired
+    OpportunityCRMMobileToCRMMessageConverter opportunityCRMMobileToCRMMessageConverter;
 
 
     Log log = LogFactory.getLog(OrderListener.class);
@@ -65,6 +70,11 @@ public class OrderListener implements MessageListener {
                 case "AccountContact" :
                     mobileModel = jsonToCRMMobileModelConverter.convert(jsonS, Contact.class);
                     crmMessage = contactCRMMobileToCRMMessageConverter.convert((Contact)mobileModel);
+                    break;
+
+                case "Opportunity" :
+                    mobileModel = jsonToCRMMobileModelConverter.convert(jsonS, Opportunity.class);
+                    crmMessage = opportunityCRMMobileToCRMMessageConverter.convert((Opportunity)mobileModel);
                     break;
             }
             crmService.sendAccountMessage(crmMessage);
