@@ -7,13 +7,13 @@ import com.google.gson.annotations.SerializedName;
  */
 public class ContactData extends CRMMobileDataModel {
     public String FirstName;
-    public String LastDescription;
+    public String LastName;
     public String Title;
     public String JobTitle;
     public boolean IsPrimary;
     public String EmployeeCount;
     @SerializedName("Account")
-    public ContactAccountRef accountRef;
+    public AccountRef accountRef;
 
 
 }

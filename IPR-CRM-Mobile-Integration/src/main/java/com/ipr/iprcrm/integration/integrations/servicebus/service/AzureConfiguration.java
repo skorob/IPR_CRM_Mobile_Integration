@@ -7,7 +7,9 @@ import com.ipr.crystal.model.EndpointTypeEntity;
 import com.ipr.crystal.model.messaging.CrystalMessage;
 import com.ipr.iprcrm.integration.integrations.servicebus.converters.AccountCRMMessageToMobileConverter;
 import com.ipr.iprcrm.integration.integrations.servicebus.converters.CRMMobileModelToJsonConverter;
+import com.ipr.iprcrm.integration.integrations.servicebus.converters.ContactCRMMessageToMobileConverter;
 import com.ipr.iprcrm.integration.integrations.servicebus.dto.Account;
+import com.ipr.iprcrm.integration.integrations.servicebus.dto.CRMMobileModel;
 import com.ipr.iprcrm.integration.integrations.servicebus.listener.EventListener;
 import com.ipr.iprcrm.integration.integrations.servicebus.listener.OrderListener;
 import org.apache.commons.logging.Log;
@@ -24,7 +26,9 @@ import javax.jms.*;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.xml.bind.JAXBContext;
+import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
+import java.io.ByteArrayInputStream;
 import java.io.StringReader;
 import java.util.Hashtable;
 
@@ -44,6 +48,9 @@ public class AzureConfiguration {
 
     @Autowired
     AccountCRMMessageToMobileConverter accountCRMToMobileConverter;
+
+    @Autowired
+    ContactCRMMessageToMobileConverter contactCRMMessageToMobileConverter;
 
     @Autowired
     CRMMobileModelToJsonConverter CRMMobileModelToJsonConverter;
@@ -113,11 +120,24 @@ public class AzureConfiguration {
                     JAXBContext jc = JAXBContext.newInstance(com.ipr.pa.policyclient.ws.crystal.schemas.Message.class);
 
                     Unmarshaller unmarshaller = jc.createUnmarshaller();
-                    com.ipr.pa.policyclient.ws.crystal.schemas.Message m = (com.ipr.pa.policyclient.ws.crystal.schemas.Message) unmarshaller.unmarshal(new StringReader(message.getPayload()));
-                    Account account = accountCRMToMobileConverter.convert(m);
-                    String json = CRMMobileModelToJsonConverter.convert(account);
+                    //unmarshaller.setProperty(Marshaller.JAXB_ENCODING, "UTF-8");
+                    ByteArrayInputStream is = new ByteArrayInputStream(message.getPayload().getBytes("UTF-8"));
+                    com.ipr.pa.policyclient.ws.crystal.schemas.Message m = (com.ipr.pa.policyclient.ws.crystal.schemas.Message) unmarshaller.unmarshal(is);
 
+                    String messageType = message.getQueryName();
 
+                    String json = null;
+                    CRMMobileModel crmMobileModel = null;
+                    switch (messageType) {
+                        case "PUSH_ACCOUNT" :
+                            crmMobileModel = accountCRMToMobileConverter.convert(m);
+                        break;
+                        case "PUSH_CONTACT" :
+                            crmMobileModel = contactCRMMessageToMobileConverter.convert(m);
+                        break;
+
+                    }
+                    json = CRMMobileModelToJsonConverter.convert(crmMobileModel);
                     crmMobileService.send(json);
                 } catch(Exception e) {
                     e.printStackTrace();

@@ -1,6 +1,5 @@
 package com.ipr.iprcrm.integration.integrations.servicebus.converters;
 
-import com.ipr.crystal.commons.builders.EndpointTypesBuilder;
 import com.ipr.iprcrm.integration.integrations.servicebus.dto.*;
 import com.ipr.pa.policyclient.ws.crystal.schemas.Message;
 import com.ipr.pa.policyclient.ws.crystal.schemas.ObjectFactory;
@@ -8,13 +7,14 @@ import com.ipr.pa.policyclient.ws.crystal.schemas.Property;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by os on 8/21/2015.
  */
 @Component
-public class AccountCRMMobileToCRMMessageConverter  extends CRMMobileToCRMMessageConverter <Account> {
+public class ContactCRMMobileToCRMMessageConverter extends CRMMobileToCRMMessageConverter <Contact> {
 
     private  static Map<String, String> channelsMapping = new HashMap<>();
     static {
@@ -36,70 +36,70 @@ public class AccountCRMMobileToCRMMessageConverter  extends CRMMobileToCRMMessag
     }
 
 
-    public Message convert(Account account) {
+    public Message convert(Contact contact) {
         ObjectFactory of = new ObjectFactory();
         Message message = of.createMessage();
-        message.setCrystalCorrId(account.header.Id);
+        message.setCrystalCorrId(contact.header.Id);
         message.setPropertyList(of.createMessagePropertyList());
-        AccountData ad = account.body.data.get(0);
+        ContactData cd = contact.body.data.get(0);
 
-        Property name = of.createProperty();
-        name.setName("PERSON_FULL_NAME");
-        name.setValue(ad.Name);
-        message.getPropertyList().getProperty().add(name);
+        Property firstName = of.createProperty();
+        firstName.setName("CONTACT_FNAME");
+        firstName.setValue(cd.FirstName);
+        message.getPropertyList().getProperty().add(firstName);
 
-        Property description = of.createProperty();
-        description.setName("COMPANY_NOTES");
-        description.setValue(ad.Description);
-        message.getPropertyList().getProperty().add(description);
+        Property surname = of.createProperty();
+        surname.setName("CONTACT_SURNAME");
+        surname.setValue(cd.LastName);
+        message.getPropertyList().getProperty().add(surname);
 
-        Property country = of.createProperty();
-        country.setName("PERS_ORIG_COUNTRY");
-        country.setValue(ad.Country);
-        message.getPropertyList().getProperty().add(country);
+        Property title = of.createProperty();
+        title.setName("CONTACT_HONORIFIC");
+        title.setValue(cd.Title);
+        message.getPropertyList().getProperty().add(title);
 
-        Property type = of.createProperty();
-        type.setName("COMPANY_TYPE");
-        if(StringUtils.isEmpty(ad.Type)) {
-            type.setValue(companyTypes.get("Other"));
-        } else {
-            type.setValue(companyTypes.get(ad.Type));
+        Property jobTitle = of.createProperty();
+        jobTitle.setName("CONTACT_JOB_TITLE");
+        jobTitle.setValue(cd.JobTitle);
+        message.getPropertyList().getProperty().add(jobTitle);
+
+
+        if(cd.IsPrimary) {
+            Property isPrimary = of.createProperty();
+            isPrimary.setName("CONTACT_IS_PRIMARY");
+            isPrimary.setValue(cd.accountRef.ExternalId);
+            message.getPropertyList().getProperty().add(isPrimary);
         }
-        message.getPropertyList().getProperty().add(type);
 
-        Property industry = of.createProperty();
-        industry.setName("PERS_COM_INDUSTRY");
-        industry.setValue(ad.Industry);
-        message.getPropertyList().getProperty().add(industry);
+        Property infCompany = of.createProperty();
+        infCompany.setName("INF_COMPANY");
+        infCompany.setValue(cd.accountRef.ExternalId);
+        message.getPropertyList().getProperty().add(infCompany);
 
-        Property emplCount = of.createProperty();
-        emplCount.setName("COMPANY_EMPL_NUM");
-        emplCount.setValue(ad.EmployeeCount);
-        message.getPropertyList().getProperty().add(emplCount);
 
         Property extId = of.createProperty();
         extId.setName("CRM_ID");
-        extId.setValue(ad.externalId);
+        extId.setValue(cd.externalId);
         message.getPropertyList().getProperty().add(extId);
 
 
         Property entType = of.createProperty();
         entType.setName("ENTITY_TYPE");
-        entType.setValue("INF_COMPANY");
+        entType.setValue("INF_CONTACT");
         message.getPropertyList().getProperty().add(entType);
 
         Property entPk = of.createProperty();
         entPk.setName("SYS_ENTITY_PK");
-        entPk.setValue(ad.externalId);
+        entPk.setValue(cd.externalId);
         message.getPropertyList().getProperty().add(entPk);
 
         Property corrId = of.createProperty();
         corrId.setName("CORRELATION_ID");
-        corrId.setValue(account.header.Id);
+        corrId.setValue(contact.header.Id);
         message.getPropertyList().getProperty().add(corrId);
 
 
-        for(Channel ch : ad.channels) {
+        for(Channel ch : cd.channels) {
             Property channel = of.createProperty();
             String channelName = channelsMapping.get(ch.Type);
             if(StringUtils.isNotEmpty(channelName)) {

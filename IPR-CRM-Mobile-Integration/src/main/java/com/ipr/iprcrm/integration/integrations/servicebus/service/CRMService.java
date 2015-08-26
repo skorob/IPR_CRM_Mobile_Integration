@@ -39,7 +39,7 @@ public class CRMService {
 
         log.info("To CRM : " + crystalMessage);
 
-        endpointTypeConfiguration.send(crystalMessage, "Crystal!CRM_MOBILE_SYS_OUT");
+        endpointTypeConfiguration.send(crystalMessage, "Crystal!CRM_SYS_OUT");
 
 
     }

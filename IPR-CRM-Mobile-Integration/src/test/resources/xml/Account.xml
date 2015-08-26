@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Message xmlns="http://pa.ipr.com/policyclient/ws/crystal/schemas">
+    <crystalCorrId>4ff18486-5f5f-4644-ad62-614e60c80aa6</crystalCorrId>
+    <PropertyList>
+        <Property name="ENTITY_TYPE">INF_COMPANY</Property>
+        <Property name="CRM_ID">58730711</Property>
+        <Property name="PERSON_FULL_NAME">Our client 2</Property>
+
+        <Property name="PERS_COM_INDUSTRY">C</Property>
+        <Property name="COMPANY_LINKEDIN">www.linkedinourclient.com</Property>
+        <Property name="COMPANY_WEB">www.ourclient.com</Property>
+        <Property name="EMAIL_ADDRESS">os@ipr.lv</Property>
+        <Property name="COMPANY_FACEBOOK">os.fb.com</Property>
+        <Property name="COMPANY_TWITTER">tweet.tweet</Property>
+        <Property name="COMPANY_NOTES">&lt;2015-08-18 07:24:24: StudyUser1(Studyuser1@ipr.local)&gt; test comments
+        </Property>
+        <Property name="COMPANY_TYPE">CLIENT</Property>
+        <Property name="PERS_ORIG_COUNTRY">SE</Property>
+        <Property name="COMPANY_EMPL_NUM">1000</Property>
+    </PropertyList>
+    <status xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+</Message>

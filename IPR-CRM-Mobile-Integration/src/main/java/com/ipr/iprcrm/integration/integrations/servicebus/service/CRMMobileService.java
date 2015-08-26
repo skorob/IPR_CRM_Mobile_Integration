@@ -1,5 +1,7 @@
 package com.ipr.iprcrm.integration.integrations.servicebus.service;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.qpid.amqp_1_0.jms.impl.QueueImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +19,9 @@ public class CRMMobileService {
     ConnectionFactory connectionFactory;
 
 
+    Log log = LogFactory.getLog(CRMMobileService.class);
+
+
     public void send(String gson) throws Exception {
         try {
 
@@ -32,7 +37,7 @@ public class CRMMobileService {
                     TextMessage message = session.createTextMessage();
 
                     message.setText(gson);
-                    System.out.println("Sending message: " + message.getText());
+                    log.info("Sending message: " +gson);
                     producer.send(message);
                 } finally {
                     session.close();

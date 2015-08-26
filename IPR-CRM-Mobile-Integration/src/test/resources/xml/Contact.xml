@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Message xmlns="http://pa.ipr.com/policyclient/ws/crystal/schemas">
+    <crystalCorrId>99e8b7e2-070e-46bc-a75b-b0cfbda6e477</crystalCorrId>
+    <PropertyList>
+        <Property name="ENTITY_TYPE">INF_CONTACT</Property>
+        <Property name="ENTITY_STATUS">ACTIVE</Property>
+        <Property name="CRM_ID">58788708</Property>
+        <Property name="CONTACT_SURNAME">TESTOVIJ</Property>
+        <Property name="CONTACT_SKYPE">hrthuyuy</Property>
+        <Property name="CONTACT_HONORIFIC">MR</Property>
+        <Property name="CONTACT_FNAME">TEST2</Property>
+        <Property name="CONTACT_LINKEDIN">rygyujyikuih</Property>
+        <Property name="PHONE_NUMBER">56457678658</Property>
+        <Property name="EMAIL_ADDRESS">al@ipr.lv</Property>
+        <Property name="COMPANY_FACEBOOK">Название компании на русском</Property>
+        <Property name="INF_COMPANY">58801708</Property>
+        <Property name="INF_COMPANY">58774708</Property>
+    </PropertyList>
+    <status xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+</Message>

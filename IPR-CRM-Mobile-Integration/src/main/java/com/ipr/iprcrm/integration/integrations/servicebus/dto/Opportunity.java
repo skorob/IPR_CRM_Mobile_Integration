@@ -3,10 +3,10 @@ package com.ipr.iprcrm.integration.integrations.servicebus.dto;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * Created by os on 8/25/2015.
+ * Created by os on 8/20/2015.
  */
-public class Contact  extends CRMMobileModel {
+public class Opportunity extends CRMMobileModel {
 
     @SerializedName("Body")
-    public ContactBody body;
+    public OpportunityBody body;
 }
