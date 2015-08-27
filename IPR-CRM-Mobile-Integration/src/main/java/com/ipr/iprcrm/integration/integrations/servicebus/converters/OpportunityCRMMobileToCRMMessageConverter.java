@@ -27,11 +27,25 @@ public class OpportunityCRMMobileToCRMMessageConverter extends CRMMobileToCRMMes
 
     public Message convert(Opportunity opportunity) {
         ObjectFactory of = new ObjectFactory();
-        Message message = of.createMessage();
-        message.setCrystalCorrId(opportunity.header.Id);
-        message.setPropertyList(of.createMessagePropertyList());
+
         OpportunityData opportunityData = opportunity.body.data.get(0);
 
+        Message message = convertToMessage(opportunityData);
+        message.setCrystalCorrId(opportunity.header.Id);
+
+
+        Property corrId = of.createProperty();
+        corrId.setName("CORRELATION_ID");
+        corrId.setValue(opportunity.header.Id);
+        message.getPropertyList().getProperty().add(corrId);
+
+        return message;
+    }
+
+    public Message convertToMessage(OpportunityData opportunityData) {
+        ObjectFactory of = new ObjectFactory();
+        Message message = of.createMessage();
+        message.setPropertyList(of.createMessagePropertyList());
         Property subject = of.createProperty();
         subject.setName("OPPTY_NAME");
         subject.setValue(opportunityData.Subject);
@@ -47,13 +61,14 @@ public class OpportunityCRMMobileToCRMMessageConverter extends CRMMobileToCRMMes
         amount.setValue(String.valueOf(opportunityData.Amount));
         message.getPropertyList().getProperty().add(amount);
 
-        Property closeDate = of.createProperty();
-        closeDate.setName("OPPTY_CLOSE_DATE");
-        Calendar instance = Calendar.getInstance(Locale.getDefault());
-        instance.setTime(opportunityData.CloseDate);
-        closeDate.setValue(DatatypeConverter.printDate(instance));
-        message.getPropertyList().getProperty().add(closeDate);
-
+        if(opportunityData.CloseDate!=null) {
+            Property closeDate = of.createProperty();
+            closeDate.setName("OPPTY_CLOSE_DATE");
+            Calendar instance = Calendar.getInstance(Locale.getDefault());
+            instance.setTime(opportunityData.CloseDate);
+            closeDate.setValue(DatatypeConverter.printDate(instance));
+            message.getPropertyList().getProperty().add(closeDate);
+        }
 
         Property propability = of.createProperty();
         propability.setName("OPPTY_PROBABILITY");
@@ -96,11 +111,6 @@ public class OpportunityCRMMobileToCRMMessageConverter extends CRMMobileToCRMMes
         entPk.setName("SYS_ENTITY_PK");
         entPk.setValue(opportunityData.externalId);
         message.getPropertyList().getProperty().add(entPk);
-
-        Property corrId = of.createProperty();
-        corrId.setName("CORRELATION_ID");
-        corrId.setValue(opportunity.header.Id);
-        message.getPropertyList().getProperty().add(corrId);
 
         return message;
     }

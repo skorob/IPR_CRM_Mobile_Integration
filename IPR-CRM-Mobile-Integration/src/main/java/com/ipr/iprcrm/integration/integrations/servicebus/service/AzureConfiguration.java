@@ -1,5 +1,7 @@
 package com.ipr.iprcrm.integration.integrations.servicebus.service;
 
+import com.google.common.base.Charsets;
+import com.google.common.io.Resources;
 import com.ipr.crystal.commons.builders.EndpointTypesBuilder;
 import com.ipr.crystal.commons.procmodels.Processor;
 import com.ipr.crystal.config.EndpointTypeConfiguration;
@@ -19,6 +21,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.jms.config.SimpleJmsListenerContainerFactory;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.listener.SimpleMessageListenerContainer;
+import sun.misc.Resource;
 
 import javax.jms.*;
 import javax.naming.Context;
@@ -174,7 +177,7 @@ public class AzureConfiguration {
                     MessageProducer producer = session.createProducer(dest);
                     BytesMessage message = session.createBytesMessage();
 
-                    message.writeBytes("{\"Header\":{\"Id\":\"38346E08-4CF5-4AA0-9E45-08B2BDE9136D\",\"Timestamp\":\"2015-08-21T11:17:28.637+00:00\",\"Source\":\"iprcrmmobile\"},\"Body\":{\"Data\":[{\"Name\":\"IPR\",\"Description\":\"from Service Bus\",\"Country\":null,\"Type\":null,\"Industry\":null,\"EmployeeCount\":null,\"Channels\":[{\"Id\":\"CC37FC72-60C4-4354-8B30-BF1F3F20B493\",\"Type\":\"Email\",\"Value\":\"juris.terauds@ideaportriga.lv\"}],\"__externalId\":null,\"__order\":null,\"__type\":\"Account\",\"Id\":\"38346E08-4CF5-4AA0-9E45-08B2BDE9136D\"}]}}".getBytes("UTF-8"));
+                    message.writeBytes(Resources.toString(Resources.getResource("json/Publish-Lead.json"), Charsets.UTF_8).getBytes());
                     System.out.println("Sending message: " + message);
                     producer.send(message);
                 } finally {

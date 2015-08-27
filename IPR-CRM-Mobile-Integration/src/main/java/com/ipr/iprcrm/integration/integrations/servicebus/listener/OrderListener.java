@@ -5,6 +5,7 @@ import com.ipr.iprcrm.integration.integrations.servicebus.converters.*;
 import com.ipr.iprcrm.integration.integrations.servicebus.dto.*;
 import com.ipr.iprcrm.integration.integrations.servicebus.service.CRMService;
 import com.ipr.pa.policyclient.ws.crystal.schemas.Message;
+import com.ipr.pa.policyclient.ws.crystal.schemas.entity.EntityListMessage;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.qpid.amqp_1_0.jms.BytesMessage;
@@ -49,21 +50,26 @@ public class OrderListener implements MessageListener {
             String jsonS = new String(bytes,"UTF-8");
             log.info("Azure OUT queue. The message is received  ["+jsonS +"]");
             Gson gson =  new Gson();
-            JsonObject jsonRoot = (JsonObject)new JsonParser().parse(jsonS);
-            JsonObject body = (JsonObject)jsonRoot.get("Body");
-            JsonArray data= body.getAsJsonArray("Data");
-
+            JsonElement jsonRoot = new JsonParser().parse(jsonS);
             String type = "Lead";
-            if(data.size() == 1) {
-                JsonObject item = (JsonObject) data.get(0);
-                type = ((JsonPrimitive) item.get("__type")).getAsString();
+            if(!jsonRoot.isJsonArray()) {
+                JsonObject body = (JsonObject)((JsonObject)jsonRoot).get("Body");
+                JsonArray data= body.getAsJsonArray("Data");
+                if(data.size() == 1) {
+                    JsonObject item = (JsonObject) data.get(0);
+                    type = ((JsonPrimitive) item.get("__type")).getAsString();
+                }
             }
+
+
+
 
 
 
 
             CRMMobileModel mobileModel = null;
             Message crmMessage = null;
+            EntityListMessage entityListMessage = null;
             switch (type) {
                 case "Account" :
                     mobileModel = jsonToCRMMobileModelConverter.convert(jsonS, Account.class);
@@ -84,11 +90,15 @@ public class OrderListener implements MessageListener {
                     crmMessage = activityCRMMobileToCRMMessageConverter.convert((Activity)mobileModel);
                     break;
                 case "Lead" :
-
-                    leadCRMMobileToCRMMessageConverter.convert(jsonRoot);
+                    entityListMessage = leadCRMMobileToCRMMessageConverter.convert(jsonRoot);
                     break;
             }
-            crmService.sendAccountMessage(crmMessage);
+
+            if(!type.equals("Lead")) {
+                crmService.sendAccountMessage(crmMessage);
+            } else {
+                crmService.sendEntityListMessage(entityListMessage);
+            }
 
             message.acknowledge();
         } catch (Exception e) {
@@ -96,5 +106,6 @@ public class OrderListener implements MessageListener {
         } finally {
         }
     }
+
 
 }

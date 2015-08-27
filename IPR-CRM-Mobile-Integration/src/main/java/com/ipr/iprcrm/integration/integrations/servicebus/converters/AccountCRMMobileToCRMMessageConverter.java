@@ -1,6 +1,5 @@
 package com.ipr.iprcrm.integration.integrations.servicebus.converters;
 
-import com.ipr.crystal.commons.builders.EndpointTypesBuilder;
 import com.ipr.iprcrm.integration.integrations.servicebus.dto.*;
 import com.ipr.pa.policyclient.ws.crystal.schemas.Message;
 import com.ipr.pa.policyclient.ws.crystal.schemas.ObjectFactory;
@@ -38,10 +37,25 @@ public class AccountCRMMobileToCRMMessageConverter  extends CRMMobileToCRMMessag
 
     public Message convert(Account account) {
         ObjectFactory of = new ObjectFactory();
-        Message message = of.createMessage();
-        message.setCrystalCorrId(account.header.Id);
-        message.setPropertyList(of.createMessagePropertyList());
+
+
         AccountData ad = account.body.data.get(0);
+
+        Message message = convertToMessage(ad);
+        message.setCrystalCorrId(account.header.Id);
+
+        Property corrId = of.createProperty();
+        corrId.setName("CORRELATION_ID");
+        corrId.setValue(account.header.Id);
+        message.getPropertyList().getProperty().add(corrId);
+
+        return message;
+    }
+
+    public Message convertToMessage(AccountData ad) {
+        ObjectFactory of = new ObjectFactory();
+        Message message = of.createMessage();
+        message.setPropertyList(of.createMessagePropertyList());
 
         Property name = of.createProperty();
         name.setName("PERSON_FULL_NAME");
@@ -93,12 +107,6 @@ public class AccountCRMMobileToCRMMessageConverter  extends CRMMobileToCRMMessag
         entPk.setValue(ad.externalId);
         message.getPropertyList().getProperty().add(entPk);
 
-        Property corrId = of.createProperty();
-        corrId.setName("CORRELATION_ID");
-        corrId.setValue(account.header.Id);
-        message.getPropertyList().getProperty().add(corrId);
-
-
         for(Channel ch : ad.channels) {
             Property channel = of.createProperty();
             String channelName = channelsMapping.get(ch.Type);
@@ -108,7 +116,6 @@ public class AccountCRMMobileToCRMMessageConverter  extends CRMMobileToCRMMessag
                 message.getPropertyList().getProperty().add(channel);
             }
         }
-
         return message;
     }
 }

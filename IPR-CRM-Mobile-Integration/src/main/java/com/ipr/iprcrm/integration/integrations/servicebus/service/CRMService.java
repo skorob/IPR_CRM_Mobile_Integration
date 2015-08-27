@@ -3,6 +3,7 @@ package com.ipr.iprcrm.integration.integrations.servicebus.service;
 import com.ipr.crystal.config.EndpointTypeConfiguration;
 import com.ipr.crystal.model.messaging.CrystalMessage;
 import com.ipr.pa.policyclient.ws.crystal.schemas.Message;
+import com.ipr.pa.policyclient.ws.crystal.schemas.entity.EntityListMessage;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,10 +38,29 @@ public class CRMService {
         crystalMessage.setQueryVersion("1.0");
         crystalMessage.setPayload(crmAccountMessage);
 
-        log.info("To CRM : " + crystalMessage);
+        log.info("To CRM Message : " + crystalMessage);
 
         endpointTypeConfiguration.send(crystalMessage, "Crystal!CRM_SYS_OUT");
 
 
+    }
+
+    public void sendEntityListMessage(EntityListMessage entityListMessage) throws Exception   {
+
+        JAXBContext jaxbContext = JAXBContext.newInstance(EntityListMessage.class);
+        Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
+        StringWriter stringWriter = new StringWriter();
+        jaxbMarshaller.marshal(entityListMessage,stringWriter);
+
+        String crmAccountMessage  = stringWriter.toString();
+        CrystalMessage crystalMessage = new CrystalMessage();
+        crystalMessage.setSystemName("CRM");
+        crystalMessage.setQueryName("SYNC_COMPLEX_OBJECTS");
+        crystalMessage.setQueryVersion("1.0");
+        crystalMessage.setPayload(crmAccountMessage);
+
+        log.info("To CRM EntityListMessage: " + crystalMessage);
+
+        endpointTypeConfiguration.send(crystalMessage, "Crystal!CRM_SYS_OUT");
     }
 }

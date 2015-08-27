@@ -7,7 +7,6 @@ import com.ipr.pa.policyclient.ws.crystal.schemas.Property;
 import org.springframework.stereotype.Component;
 
 import javax.xml.bind.DatatypeConverter;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
@@ -33,11 +32,26 @@ public class ActivityCRMMobileToCRMMessageConverter extends CRMMobileToCRMMessag
 
     public Message convert(Activity activity) {
         ObjectFactory of = new ObjectFactory();
-        Message message = of.createMessage();
-        message.setCrystalCorrId(activity.header.Id);
-        message.setPropertyList(of.createMessagePropertyList());
+
+
         ActivityData opportunityData = activity.body.data.get(0);
 
+        Message message = convertToMessage(opportunityData);
+        message.setCrystalCorrId(activity.header.Id);
+
+
+        Property corrId = of.createProperty();
+        corrId.setName("CORRELATION_ID");
+        corrId.setValue(activity.header.Id);
+        message.getPropertyList().getProperty().add(corrId);
+
+        return message;
+    }
+
+    public Message convertToMessage(ActivityData opportunityData) {
+        ObjectFactory of = new ObjectFactory();
+        Message message = of.createMessage();
+        message.setPropertyList(of.createMessagePropertyList());
         Property subject = of.createProperty();
         subject.setName("ACT_SUBJECT");
         subject.setValue(opportunityData.Subject);
@@ -48,14 +62,15 @@ public class ActivityCRMMobileToCRMMessageConverter extends CRMMobileToCRMMessag
         description.setValue(opportunityData.Description);
         message.getPropertyList().getProperty().add(description);
 
+        if(opportunityData.PlannedDate!=null) {
+            Property plannedDate = of.createProperty();
+            plannedDate.setName("ACT_TARGET_DATE");
 
-        Property plannedDate = of.createProperty();
-        plannedDate.setName("ACT_TARGET_DATE");
-
-        Calendar plannedDateCalendar = Calendar.getInstance();
-        plannedDateCalendar.setTime(opportunityData.PlannedDate);
-        plannedDate.setValue(DatatypeConverter.printDate(plannedDateCalendar));
-        message.getPropertyList().getProperty().add(plannedDate);
+            Calendar plannedDateCalendar = Calendar.getInstance();
+            plannedDateCalendar.setTime(opportunityData.PlannedDate);
+            plannedDate.setValue(DatatypeConverter.printDate(plannedDateCalendar));
+            message.getPropertyList().getProperty().add(plannedDate);
+        }
 
         Property type = of.createProperty();
         type.setName("ENTITY_TYPE");
@@ -104,11 +119,6 @@ public class ActivityCRMMobileToCRMMessageConverter extends CRMMobileToCRMMessag
         entPk.setName("SYS_ENTITY_PK");
         entPk.setValue(opportunityData.externalId);
         message.getPropertyList().getProperty().add(entPk);
-
-        Property corrId = of.createProperty();
-        corrId.setName("CORRELATION_ID");
-        corrId.setValue(activity.header.Id);
-        message.getPropertyList().getProperty().add(corrId);
 
         return message;
     }

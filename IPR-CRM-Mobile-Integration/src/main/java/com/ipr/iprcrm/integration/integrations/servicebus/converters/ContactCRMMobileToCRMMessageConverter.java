@@ -38,11 +38,25 @@ public class ContactCRMMobileToCRMMessageConverter extends CRMMobileToCRMMessage
 
     public Message convert(Contact contact) {
         ObjectFactory of = new ObjectFactory();
-        Message message = of.createMessage();
-        message.setCrystalCorrId(contact.header.Id);
-        message.setPropertyList(of.createMessagePropertyList());
+
+
         ContactData cd = contact.body.data.get(0);
 
+        Message message = convertToMessage(cd);
+        message.setCrystalCorrId(contact.header.Id);
+
+
+        Property corrId = of.createProperty();
+        corrId.setName("CORRELATION_ID");
+        corrId.setValue(contact.header.Id);
+        message.getPropertyList().getProperty().add(corrId);
+        return message;
+    }
+
+    public Message convertToMessage( ContactData cd) {
+        ObjectFactory of = new ObjectFactory();
+        Message message = of.createMessage();
+        message.setPropertyList(of.createMessagePropertyList());
         Property firstName = of.createProperty();
         firstName.setName("CONTACT_FNAME");
         firstName.setValue(cd.FirstName);
@@ -93,12 +107,6 @@ public class ContactCRMMobileToCRMMessageConverter extends CRMMobileToCRMMessage
         entPk.setName("SYS_ENTITY_PK");
         entPk.setValue(cd.externalId);
         message.getPropertyList().getProperty().add(entPk);
-
-        Property corrId = of.createProperty();
-        corrId.setName("CORRELATION_ID");
-        corrId.setValue(contact.header.Id);
-        message.getPropertyList().getProperty().add(corrId);
-
 
         for(Channel ch : cd.channels) {
             Property channel = of.createProperty();

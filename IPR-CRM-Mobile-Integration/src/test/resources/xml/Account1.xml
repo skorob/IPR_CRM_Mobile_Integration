@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<EntityListMessage xmlns="http://pa.ipr.com/policyclient/ws/crystal/schemas/entity">
+    <extCorrData/>
+    <EntityList>
+        <Entity>
+            <Property name="CONTACT_FNAME">FName</Property>
+            <Property name="CONTACT_SURNAME">LName</Property>
+            <Property name="CONTACT_HONORIFIC"/>
+            <Property name="CONTACT_JOB_TITLE"/>
+            <Property name="INF_COMPANY"/>
+            <Property name="CRM_ID"/>
+            <Property name="ENTITY_TYPE">INF_CONTACT</Property>
+            <Property name="SYS_ENTITY_PK"/>
+            <Property name="EMAIL_ADDRESS">john.green@123.lv</Property>
+            <Property name="CORRELATION_ID">eda0ebe1-6bdd-4e72-bd53-594ad3574f66</Property>
+        </Entity>
+        <Entity>
+            <Property name="OPPTY_NAME">The best opportunity</Property>
+            <Property name="OPPTY_NOTES"/>
+            <Property name="OPPTY_FORECAST_AMOUNT">0.0</Property>
+            <Property name="OPPTY_PROBABILITY">0.0</Property>
+            <Property name="SALES_STAGE">LEAD</Property>
+            <Property name="INF_COMPANY"/>
+            <Property name="INF_CONTACT"/>
+            <Property name="CRM_ID"/>
+            <Property name="ENTITY_TYPE">INF_OPPORTUNITY</Property>
+            <Property name="SYS_ENTITY_PK"/>
+            <Property name="CORRELATION_ID">eda0ebe1-6bdd-4e72-bd53-594ad3574f66</Property>
+        </Entity>
+        <Entity>
+            <Property name="ACT_SUBJECT">Schedule meeting on Monday</Property>
+            <Property name="ACT_BODY"/>
+            <Property name="ACT_TARGET_DATE">2015-08-26+03:00</Property>
+            <Property name="ENTITY_TYPE"/>
+            <Property name="ACT_STATUS">PLANNED</Property>
+            <Property name="INF_OPPORTUNITY"/>
+            <Property name="INF_CONTACT"/>
+            <Property name="CRM_ID"/>
+            <Property name="ENTITY_TYPE">INF_ACTIVITY</Property>
+            <Property name="SYS_ENTITY_PK"/>
+            <Property name="CORRELATION_ID">eda0ebe1-6bdd-4e72-bd53-594ad3574f66</Property>
+        </Entity>
+    </EntityList>
+    <status xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+</EntityListMessage>
