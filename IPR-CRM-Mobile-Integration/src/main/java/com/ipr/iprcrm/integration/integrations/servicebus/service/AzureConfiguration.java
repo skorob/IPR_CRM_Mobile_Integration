@@ -57,6 +57,9 @@ public class AzureConfiguration {
     OpportunityCRMMessageToMobileConverter opportunityCRMMessageToMobileConverter;
 
     @Autowired
+    ActivityCRMMessageToMobileConverter activityCRMMessageToMobileConverter;
+
+    @Autowired
     CRMMobileService crmMobileService;
 
     @Bean
@@ -139,7 +142,9 @@ public class AzureConfiguration {
                         case "PUSH_OPPORTUNITY" :
                             crmMobileModel = opportunityCRMMessageToMobileConverter.convert(m);
                         break;
-
+                        case "PUSH_ACTIVITY" :
+                            crmMobileModel = activityCRMMessageToMobileConverter.convert(m);
+                            break;
                     }
                     json = CRMMobileModelToJsonConverter.convert(crmMobileModel);
                     crmMobileService.send(json);

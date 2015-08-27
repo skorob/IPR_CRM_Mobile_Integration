@@ -71,11 +71,12 @@ public class ContactCRMMobileToCRMMessageConverter extends CRMMobileToCRMMessage
             message.getPropertyList().getProperty().add(isPrimary);
         }
 
-        Property infCompany = of.createProperty();
-        infCompany.setName("INF_COMPANY");
-        infCompany.setValue(cd.accountRef.ExternalId);
-        message.getPropertyList().getProperty().add(infCompany);
-
+        if(cd.accountRef!=null) {
+            Property infCompany = of.createProperty();
+            infCompany.setName("INF_COMPANY");
+            infCompany.setValue(cd.accountRef.ExternalId);
+            message.getPropertyList().getProperty().add(infCompany);
+        }
 
         Property extId = of.createProperty();
         extId.setName("CRM_ID");

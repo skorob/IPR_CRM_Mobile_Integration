@@ -1,0 +1,19 @@
+<Message xmlns="http://pa.ipr.com/policyclient/ws/crystal/schemas">
+    <crystalCorrId>89f308dc-90cb-40b6-9f74-b21321dad032</crystalCorrId>
+    <PropertyList>
+        <Property name="ENTITY_TYPE">INF_OPPORTUNITY</Property>
+        <Property name="ENTITY_STATUS">ACTIVE</Property>
+        <Property name="CRM_ID">58822708</Property>
+        <Property name="OPPTY_NOTES">&lt;2015-08-26 15:56:49: StudyUser1(studyuser1@ipr.local)&gt; Description
+        </Property>
+        <Property name="OPPTY_FORECAST_AMOUNT">11.00</Property>
+        <Property name="OPPTY_CLOSE_DATE">2015-08-26T12:00:00+03:00</Property>
+        <Property name="SALES_STAGE">KEY_BELIEF_ANALYSIS</Property>
+        <Property name="OPPTY_NAME">Test opp</Property>
+        <Property name="OPPTY_PROBABILITY">20</Property>
+        <Property name="INF_COMPANY">58818708</Property>
+        <Property name="INF_CONTACT">58817709</Property>
+        <Property name="INF_CONTACT">58758710</Property>
+    </PropertyList>
+    <status xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+</Message>

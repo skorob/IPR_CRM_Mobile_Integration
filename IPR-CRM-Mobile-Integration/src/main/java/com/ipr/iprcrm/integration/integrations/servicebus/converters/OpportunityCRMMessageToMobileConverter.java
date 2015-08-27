@@ -11,7 +11,9 @@ import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.stereotype.Component;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,6 +23,7 @@ import java.util.Map;
 @Component
 public class OpportunityCRMMessageToMobileConverter extends CRMMessageToMobileConverter<Opportunity> {
 
+    public static final String XML_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ssX";
     public   static BiMap<String, String> companyTypes = HashBiMap.create();
 
     static {
@@ -53,7 +56,14 @@ public class OpportunityCRMMessageToMobileConverter extends CRMMessageToMobileCo
         opportunityData.Description = getPropertyValue(message, "OPPTY_NOTES");
         opportunityData.Amount = NumberUtils.toDouble(getPropertyValue(message, "OPPTY_FORECAST_AMOUNT"), 0);
         try {
-            opportunityData.CloseDate = DateUtils.parseDate(getPropertyValue(message, "OPPTY_CLOSE_DATE"));
+//            //Calendar calendar = Calendar.getInstance();
+//            //calendar.setTime(new SimpleDateFormat(JsonToCRMMobileModelConverter.DATE_FORMAT).parse(getPropertyValue(message, "OPPTY_CLOSE_DATE")));
+//            opportunityData.CloseDate = DateUtils.parseDate(getPropertyValue(message, "OPPTY_CLOSE_DATE"));
+//                    //DateUtils.parseDate(getPropertyValue(message, "OPPTY_CLOSE_DATE"), "yyyy-MM-dd'T'HH:mm:ss'Z'");
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(new SimpleDateFormat(OpportunityCRMMessageToMobileConverter.XML_DATE_FORMAT).parse(getPropertyValue(message, "OPPTY_CLOSE_DATE")));
+            opportunityData.CloseDate = calendar.getTime();
+
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -65,7 +75,7 @@ public class OpportunityCRMMessageToMobileConverter extends CRMMessageToMobileCo
 
         opportunityData.Contacts = new ArrayList<>();
         for(Property p : message.getPropertyList().getProperty()) {
-            if(p.getName().equals("INF_OPPTY???")) {
+            if(p.getName().equals("INF_CONTACT")) {
                 ContactRef cf = new ContactRef();
                 cf.ExternalId = p.getValue();
                 opportunityData.Contacts.add(cf);
@@ -82,7 +92,7 @@ public class OpportunityCRMMessageToMobileConverter extends CRMMessageToMobileCo
 
     @Override
     public String getType() {
-        return "AccountContact";
+        return "Opportunity";
     }
 
 

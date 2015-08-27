@@ -1,14 +1,8 @@
 package com.ipr.iprcrm.integration.integrations.servicebus.listener;
 
 import com.google.gson.*;
-import com.ipr.iprcrm.integration.integrations.servicebus.converters.AccountCRMMobileToCRMMessageConverter;
-import com.ipr.iprcrm.integration.integrations.servicebus.converters.ContactCRMMobileToCRMMessageConverter;
-import com.ipr.iprcrm.integration.integrations.servicebus.converters.JsonToCRMMobileModelConverter;
-import com.ipr.iprcrm.integration.integrations.servicebus.converters.OpportunityCRMMobileToCRMMessageConverter;
-import com.ipr.iprcrm.integration.integrations.servicebus.dto.Account;
-import com.ipr.iprcrm.integration.integrations.servicebus.dto.CRMMobileModel;
-import com.ipr.iprcrm.integration.integrations.servicebus.dto.Contact;
-import com.ipr.iprcrm.integration.integrations.servicebus.dto.Opportunity;
+import com.ipr.iprcrm.integration.integrations.servicebus.converters.*;
+import com.ipr.iprcrm.integration.integrations.servicebus.dto.*;
 import com.ipr.iprcrm.integration.integrations.servicebus.service.CRMService;
 import com.ipr.pa.policyclient.ws.crystal.schemas.Message;
 import org.apache.commons.logging.Log;
@@ -35,6 +29,11 @@ public class OrderListener implements MessageListener {
     @Autowired
     OpportunityCRMMobileToCRMMessageConverter opportunityCRMMobileToCRMMessageConverter;
 
+    @Autowired
+    ActivityCRMMobileToCRMMessageConverter activityCRMMobileToCRMMessageConverter;
+
+    @Autowired
+    LeadCRMMobileToCRMMessageConverter leadCRMMobileToCRMMessageConverter;
 
     Log log = LogFactory.getLog(OrderListener.class);
 
@@ -50,11 +49,15 @@ public class OrderListener implements MessageListener {
             String jsonS = new String(bytes,"UTF-8");
             log.info("Azure OUT queue. The message is received  ["+jsonS +"]");
             Gson gson =  new Gson();
-            JsonObject el = (JsonObject)new JsonParser().parse(jsonS);
-            JsonObject body = (JsonObject)el.get("Body");
+            JsonObject jsonRoot = (JsonObject)new JsonParser().parse(jsonS);
+            JsonObject body = (JsonObject)jsonRoot.get("Body");
             JsonArray data= body.getAsJsonArray("Data");
-            JsonObject item = (JsonObject)data.get(0);
-            String type = ((JsonPrimitive)item.get("__type")).getAsString();
+
+            String type = "Lead";
+            if(data.size() == 1) {
+                JsonObject item = (JsonObject) data.get(0);
+                type = ((JsonPrimitive) item.get("__type")).getAsString();
+            }
 
 
 
@@ -75,6 +78,14 @@ public class OrderListener implements MessageListener {
                 case "Opportunity" :
                     mobileModel = jsonToCRMMobileModelConverter.convert(jsonS, Opportunity.class);
                     crmMessage = opportunityCRMMobileToCRMMessageConverter.convert((Opportunity)mobileModel);
+                    break;
+                case "Activity" :
+                    mobileModel = jsonToCRMMobileModelConverter.convert(jsonS, Activity.class);
+                    crmMessage = activityCRMMobileToCRMMessageConverter.convert((Activity)mobileModel);
+                    break;
+                case "Lead" :
+
+                    leadCRMMobileToCRMMessageConverter.convert(jsonRoot);
                     break;
             }
             crmService.sendAccountMessage(crmMessage);

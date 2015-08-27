@@ -1,88 +1,82 @@
-{
-  "Header": {
-    "Id": "CFFE9A9E-379B-46B0-BDA4-FE4A9FCED7DE",
-    "Timestamp": "2015-08-18T12:55:01.6050852+00:00",
-    "Source": "iprcrmmobile"
-  },
-  "Body": {
-    "Data": [
-      {
-        "Name": "IPR",
-        "Description": null,
-        "Country": null,
-        "Type": null,
-        "Industry": null,
-        "EmployeeCount": null,
-        "Channels": [],
-        "__externalId": null,
-        "__order": 0,
-        "__type": "Account",
-        "Id": "8ffa2029-97b1-4565-b4c0-3531bc7e0ff9"
-      },
-      {
-        "FirstName": "Juris",
-        "LastName": "Terauds",
-        "Title": null,
-        "JobTitle": null,
-        "IsPrimary": false,
-        "Channels": [
-          {
-            "Id": "c403ed8c-ec7c-469e-a291-58d46a6f9f7a",
-            "Type": "Email",
-            "Value": "juris.terauds@ideaportriga.lv"
-          }
-        ],
-        "Account": {
-          "Id": "8ffa2029-97b1-4565-b4c0-3531bc7e0ff9",
-          "ExternalId": null
-        },
-        "__externalId": null,
-        "__order": 1,
-        "__type": "AccountContact",
-        "Id": "a6fe090d-c3b0-43d9-a9be-459ea4219853"
-      },
-      {
-        "Subject": "Get Xamarin Contract",
-        "Description": null,
-        "Amount": null,
-        "CloseDate": null,
-        "Probability": null,
-        "SalesStage": 0,
-        "Account": {
-          "Id": "8ffa2029-97b1-4565-b4c0-3531bc7e0ff9",
-          "ExternalId": null
-        },
-        "Contacts": [
-          {
-            "Id": "a6fe090d-c3b0-43d9-a9be-459ea4219853",
+[
+  {
+    "Header": {
+      "Id": "eda0ebe1-6bdd-4e72-bd53-594ad3574f66",
+      "Timestamp": "2015-08-26T15:24:57.168+00:00",
+      "Source": "iprcrmmobile"
+    },
+    "Body": {
+      "Data": [
+        {
+          "FirstName": "FName",
+          "LastName": "LName",
+          "Title": null,
+          "JobTitle": null,
+          "IsPrimary": false,
+          "Channels": [
+            {
+              "Id": "41648e8e-ac4a-45ad-9f77-5b4611778a9b",
+              "Type": "Email",
+              "Value": "john.green@123.lv"
+            },
+            {
+              "Id": "497c285e-ff94-435b-b2ba-2ab1a5ca5cb2",
+              "Type": "Phone",
+              "Value": "+371 29878787"
+            }
+          ],
+          "Account": {
+            "Id": "0fd637d5-3daa-4c5b-bf08-5ce28ac3c2a4",
             "ExternalId": null
-          }
-        ],
-        "__externalId": null,
-        "__order": 2,
-        "__type": "Opportunity",
-        "Id": "c04daa34-5e19-41c9-8390-c1d6b743cf0d"
-      },
-      {
-        "Subject": "Have a quick chat",
-        "Description": null,
-        "PlannedDate": "2015-09-08T15:00:00+00:00",
-        "Type": null,
-        "Status": "Planned",
-        "Opportunity": {
-          "Id": "c04daa34-5e19-41c9-8390-c1d6b743cf0d",
-          "ExternalId": null
+          },
+          "__externalId": null,
+          "__order": 0,
+          "__type": "AccountContact",
+          "Id": "c8874ebb-b6fd-4f84-80a0-130cf94256b8"
         },
-        "Contact": {
-          "Id": "a6fe090d-c3b0-43d9-a9be-459ea4219853",
-          "ExternalId": null
+        {
+          "Subject": "The best opportunity",
+          "Description": null,
+          "Amount": null,
+          "CloseDate": null,
+          "Probability": null,
+          "SalesStage": "Lead",
+          "Account": {
+            "Id": "0fd637d5-3daa-4c5b-bf08-5ce28ac3c2a4",
+            "ExternalId": null
+          },
+          "Contacts": [
+            {
+              "Id": "c8874ebb-b6fd-4f84-80a0-130cf94256b8",
+              "ExternalId": null
+            }
+          ],
+          "__externalId": null,
+          "__order": 1,
+          "__type": "Opportunity",
+          "Id": "538d23a1-ae1f-4c17-9b52-2c87039f581f"
         },
-        "Employee": null,
-        "__externalId": null,
-        "__order": 3,
-        "__type": "Activity",
-        "Id": "4efc590e-e5fb-41b0-b19d-113f3246d573"
-      }
-    ]
+        {
+          "Subject": "Schedule meeting on Monday",
+          "Description": null,
+          "PlannedDate": "2015-08-26T18:24:37.566+03:00",
+          "Type": null,
+          "Status": "Planned",
+          "Opportunity": {
+            "Id": "538d23a1-ae1f-4c17-9b52-2c87039f581f",
+            "ExternalId": null
+          },
+          "Contact": {
+            "Id": "c8874ebb-b6fd-4f84-80a0-130cf94256b8",
+            "ExternalId": null
+          },
+          "Employee": null,
+          "__externalId": null,
+          "__order": 2,
+          "__type": "Activity",
+          "Id": "587465de-7f68-4d1d-9571-8738f4d21703"
+        }
+      ]
+    }
   }
-}
+]

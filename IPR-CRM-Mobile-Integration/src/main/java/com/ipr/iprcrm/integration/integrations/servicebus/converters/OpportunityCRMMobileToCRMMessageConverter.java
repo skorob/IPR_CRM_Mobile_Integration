@@ -8,8 +8,11 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.stereotype.Component;
 
+import javax.xml.bind.DatatypeConverter;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -46,9 +49,11 @@ public class OpportunityCRMMobileToCRMMessageConverter extends CRMMobileToCRMMes
 
         Property closeDate = of.createProperty();
         closeDate.setName("OPPTY_CLOSE_DATE");
-        SimpleDateFormat dateFormat = new SimpleDateFormat(JsonToCRMMobileModelConverter.DATE_FORMAT);
-        closeDate.setValue(dateFormat.format(opportunityData.CloseDate));
+        Calendar instance = Calendar.getInstance(Locale.getDefault());
+        instance.setTime(opportunityData.CloseDate);
+        closeDate.setValue(DatatypeConverter.printDate(instance));
         message.getPropertyList().getProperty().add(closeDate);
+
 
         Property propability = of.createProperty();
         propability.setName("OPPTY_PROBABILITY");
@@ -70,7 +75,7 @@ public class OpportunityCRMMobileToCRMMessageConverter extends CRMMobileToCRMMes
         if(opportunityData.Contacts!=null) {
             for(ContactRef contactRef : opportunityData.Contacts) {
                 Property contactCRMRef = of.createProperty();
-                contactCRMRef.setName("INF_OPPTY???");
+                contactCRMRef.setName("INF_CONTACT");
                 contactCRMRef.setValue(contactRef.ExternalId);
                 message.getPropertyList().getProperty().add(contactCRMRef);
             }
