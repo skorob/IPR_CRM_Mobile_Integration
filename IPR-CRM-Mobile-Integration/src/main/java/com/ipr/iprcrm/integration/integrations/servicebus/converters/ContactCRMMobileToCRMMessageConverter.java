@@ -62,6 +62,7 @@ public class ContactCRMMobileToCRMMessageConverter extends CRMMobileToCRMMessage
         firstName.setValue(cd.FirstName);
         message.getPropertyList().getProperty().add(firstName);
 
+
         Property surname = of.createProperty();
         surname.setName("CONTACT_SURNAME");
         surname.setValue(cd.LastName);
@@ -92,10 +93,7 @@ public class ContactCRMMobileToCRMMessageConverter extends CRMMobileToCRMMessage
             message.getPropertyList().getProperty().add(infCompany);
         }
 
-        Property extId = of.createProperty();
-        extId.setName("CRM_ID");
-        extId.setValue(cd.externalId);
-        message.getPropertyList().getProperty().add(extId);
+        fillData(cd, of, message);
 
 
         Property entType = of.createProperty();
@@ -103,10 +101,7 @@ public class ContactCRMMobileToCRMMessageConverter extends CRMMobileToCRMMessage
         entType.setValue("INF_CONTACT");
         message.getPropertyList().getProperty().add(entType);
 
-        Property entPk = of.createProperty();
-        entPk.setName("SYS_ENTITY_PK");
-        entPk.setValue(cd.externalId);
-        message.getPropertyList().getProperty().add(entPk);
+
 
         for(Channel ch : cd.channels) {
             Property channel = of.createProperty();
@@ -120,4 +115,6 @@ public class ContactCRMMobileToCRMMessageConverter extends CRMMobileToCRMMessage
 
         return message;
     }
+
+
 }

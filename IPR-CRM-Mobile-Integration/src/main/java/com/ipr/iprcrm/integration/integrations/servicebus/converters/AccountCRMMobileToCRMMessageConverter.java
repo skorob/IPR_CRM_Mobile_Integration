@@ -91,10 +91,7 @@ public class AccountCRMMobileToCRMMessageConverter  extends CRMMobileToCRMMessag
         emplCount.setValue(ad.EmployeeCount);
         message.getPropertyList().getProperty().add(emplCount);
 
-        Property extId = of.createProperty();
-        extId.setName("CRM_ID");
-        extId.setValue(ad.externalId);
-        message.getPropertyList().getProperty().add(extId);
+        fillData(ad, of, message);
 
 
         Property entType = of.createProperty();
@@ -102,10 +99,7 @@ public class AccountCRMMobileToCRMMessageConverter  extends CRMMobileToCRMMessag
         entType.setValue("INF_COMPANY");
         message.getPropertyList().getProperty().add(entType);
 
-        Property entPk = of.createProperty();
-        entPk.setName("SYS_ENTITY_PK");
-        entPk.setValue(ad.externalId);
-        message.getPropertyList().getProperty().add(entPk);
+
 
         for(Channel ch : ad.channels) {
             Property channel = of.createProperty();

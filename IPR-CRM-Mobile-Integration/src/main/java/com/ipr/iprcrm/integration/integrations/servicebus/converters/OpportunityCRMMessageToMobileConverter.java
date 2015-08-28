@@ -60,9 +60,14 @@ public class OpportunityCRMMessageToMobileConverter extends CRMMessageToMobileCo
 //            //calendar.setTime(new SimpleDateFormat(JsonToCRMMobileModelConverter.DATE_FORMAT).parse(getPropertyValue(message, "OPPTY_CLOSE_DATE")));
 //            opportunityData.CloseDate = DateUtils.parseDate(getPropertyValue(message, "OPPTY_CLOSE_DATE"));
 //                    //DateUtils.parseDate(getPropertyValue(message, "OPPTY_CLOSE_DATE"), "yyyy-MM-dd'T'HH:mm:ss'Z'");
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTime(new SimpleDateFormat(OpportunityCRMMessageToMobileConverter.XML_DATE_FORMAT).parse(getPropertyValue(message, "OPPTY_CLOSE_DATE")));
-            opportunityData.CloseDate = calendar.getTime();
+
+
+            String opptyCloseDate = getPropertyValue(message, "OPPTY_CLOSE_DATE");
+            if(StringUtils.isNotEmpty(opptyCloseDate)) {
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(new SimpleDateFormat(OpportunityCRMMessageToMobileConverter.XML_DATE_FORMAT).parse(opptyCloseDate));
+                opportunityData.CloseDate = calendar.getTime();
+            }
 
         } catch (ParseException e) {
             e.printStackTrace();

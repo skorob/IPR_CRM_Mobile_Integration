@@ -96,10 +96,7 @@ public class OpportunityCRMMobileToCRMMessageConverter extends CRMMobileToCRMMes
             }
         }
 
-        Property extId = of.createProperty();
-        extId.setName("CRM_ID");
-        extId.setValue(opportunityData.externalId);
-        message.getPropertyList().getProperty().add(extId);
+
 
 
         Property entType = of.createProperty();
@@ -107,10 +104,7 @@ public class OpportunityCRMMobileToCRMMessageConverter extends CRMMobileToCRMMes
         entType.setValue("INF_OPPORTUNITY");
         message.getPropertyList().getProperty().add(entType);
 
-        Property entPk = of.createProperty();
-        entPk.setName("SYS_ENTITY_PK");
-        entPk.setValue(opportunityData.externalId);
-        message.getPropertyList().getProperty().add(entPk);
+        fillData(opportunityData, of, message);
 
         return message;
     }

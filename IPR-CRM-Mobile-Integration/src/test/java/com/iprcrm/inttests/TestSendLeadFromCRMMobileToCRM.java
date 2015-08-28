@@ -9,9 +9,9 @@ import org.junit.Test;
 
 import javax.jms.*;
 
-public class TestSendOpportunityFromCRMMobileToCRM {
+public class TestSendLeadFromCRMMobileToCRM {
 
-	private static final Logger log = Logger.getLogger(TestSendOpportunityFromCRMMobileToCRM.class);
+	private static final Logger log = Logger.getLogger(TestSendLeadFromCRMMobileToCRM.class);
 	
 	@Test
 	public void test() throws Exception {

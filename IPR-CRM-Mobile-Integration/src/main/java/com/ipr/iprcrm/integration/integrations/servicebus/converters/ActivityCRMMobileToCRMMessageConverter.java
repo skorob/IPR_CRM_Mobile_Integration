@@ -48,66 +48,63 @@ public class ActivityCRMMobileToCRMMessageConverter extends CRMMobileToCRMMessag
         return message;
     }
 
-    public Message convertToMessage(ActivityData opportunityData) {
+    public Message convertToMessage(ActivityData activityData) {
         ObjectFactory of = new ObjectFactory();
         Message message = of.createMessage();
         message.setPropertyList(of.createMessagePropertyList());
         Property subject = of.createProperty();
         subject.setName("ACT_SUBJECT");
-        subject.setValue(opportunityData.Subject);
+        subject.setValue(activityData.Subject);
         message.getPropertyList().getProperty().add(subject);
 
         Property description = of.createProperty();
         description.setName("ACT_BODY");
-        description.setValue(opportunityData.Description);
+        description.setValue(activityData.Description);
         message.getPropertyList().getProperty().add(description);
 
-        if(opportunityData.PlannedDate!=null) {
+        if(activityData.PlannedDate!=null) {
             Property plannedDate = of.createProperty();
             plannedDate.setName("ACT_TARGET_DATE");
 
             Calendar plannedDateCalendar = Calendar.getInstance();
-            plannedDateCalendar.setTime(opportunityData.PlannedDate);
+            plannedDateCalendar.setTime(activityData.PlannedDate);
             plannedDate.setValue(DatatypeConverter.printDate(plannedDateCalendar));
             message.getPropertyList().getProperty().add(plannedDate);
         }
 
         Property type = of.createProperty();
         type.setName("ENTITY_TYPE");
-        type.setValue(actTypes.get(opportunityData.Type));
+        type.setValue(actTypes.get(activityData.Type));
         message.getPropertyList().getProperty().add(type);
 
         Property status = of.createProperty();
         status.setName("ACT_STATUS");
-        status.setValue(actStatus.get(opportunityData.Status));
+        status.setValue(actStatus.get(activityData.Status));
         message.getPropertyList().getProperty().add(status);
 
-        if(opportunityData.Opportunity!=null) {
+        if(activityData.Opportunity!=null) {
             Property opportunityRef = of.createProperty();
             opportunityRef.setName("INF_OPPORTUNITY");
-            opportunityRef.setValue(opportunityData.Opportunity.ExternalId);
+            opportunityRef.setValue(activityData.Opportunity.ExternalId);
             message.getPropertyList().getProperty().add(opportunityRef);
         }
 
-        if(opportunityData.Contact!=null) {
+        if(activityData.Contact!=null) {
             Property contactRef = of.createProperty();
             contactRef.setName("INF_CONTACT");
-            contactRef.setValue(opportunityData.Contact.ExternalId);
+            contactRef.setValue(activityData.Contact.ExternalId);
             message.getPropertyList().getProperty().add(contactRef);
         }
 
-        if(opportunityData.Employee!=null) {
+        if(activityData.Employee!=null) {
             Property employeeRef = of.createProperty();
             employeeRef.setName("SYS_USER");
-            employeeRef.setValue(opportunityData.Employee.ExternalId);
+            employeeRef.setValue(activityData.Employee.ExternalId);
             message.getPropertyList().getProperty().add(employeeRef);
         }
 
 
-        Property extId = of.createProperty();
-        extId.setName("CRM_ID");
-        extId.setValue(opportunityData.externalId);
-        message.getPropertyList().getProperty().add(extId);
+        fillData(activityData, of, message);
 
 
         Property entType = of.createProperty();
@@ -115,10 +112,7 @@ public class ActivityCRMMobileToCRMMessageConverter extends CRMMobileToCRMMessag
         entType.setValue("INF_ACTIVITY");
         message.getPropertyList().getProperty().add(entType);
 
-        Property entPk = of.createProperty();
-        entPk.setName("SYS_ENTITY_PK");
-        entPk.setValue(opportunityData.externalId);
-        message.getPropertyList().getProperty().add(entPk);
+
 
         return message;
     }

@@ -5,6 +5,7 @@ import com.google.common.collect.HashBiMap;
 import com.ipr.iprcrm.integration.integrations.servicebus.dto.*;
 import com.ipr.pa.policyclient.ws.crystal.schemas.Message;
 import com.ipr.pa.policyclient.ws.crystal.schemas.Property;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.stereotype.Component;
 
@@ -57,9 +58,12 @@ public class ActivityCRMMessageToMobileConverter extends CRMMessageToMobileConve
 
         try {
 
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTime(new SimpleDateFormat(OpportunityCRMMessageToMobileConverter.XML_DATE_FORMAT).parse(getPropertyValue(message, "ACT_TARGET_DATE")));
-            activityData.PlannedDate = calendar.getTime();
+            String actTargetDate = getPropertyValue(message, "ACT_TARGET_DATE");
+            if(StringUtils.isNotEmpty(actTargetDate)) {
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(new SimpleDateFormat(OpportunityCRMMessageToMobileConverter.XML_DATE_FORMAT).parse(actTargetDate));
+                activityData.PlannedDate = calendar.getTime();
+            }
 
             //activityData.PlannedDate = DateUtils.parseDate(getPropertyValue(message, "ACT_TARGET_DATE"));
         } catch (ParseException e) {

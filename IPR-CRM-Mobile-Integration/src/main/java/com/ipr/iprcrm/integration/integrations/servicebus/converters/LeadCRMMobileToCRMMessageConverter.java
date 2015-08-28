@@ -49,7 +49,7 @@ public class LeadCRMMobileToCRMMessageConverter {
 
 
 
-        JsonObject data= (JsonObject)((JsonArray)jsonRoot).get(0);
+        JsonObject data= (JsonObject)(jsonRoot);
         CRMMobileModel mobileModel = null;
 
         JsonToCRMMobileModelConverter  c= new JsonToCRMMobileModelConverter();

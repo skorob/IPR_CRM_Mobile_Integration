@@ -48,7 +48,7 @@ public class OrderListener implements MessageListener {
             byte[] bytes  = new byte[(int)bytesMessage.getBodyLength()];
             bytesMessage.readBytes(bytes);
             String jsonS = new String(bytes,"UTF-8");
-            log.info("Azure OUT queue. The message is received  ["+jsonS +"]");
+            log.info("Azure OUT queue. The message is received  "+jsonS +"");
             Gson gson =  new Gson();
             JsonElement jsonRoot = new JsonParser().parse(jsonS);
             String type = "Lead";
