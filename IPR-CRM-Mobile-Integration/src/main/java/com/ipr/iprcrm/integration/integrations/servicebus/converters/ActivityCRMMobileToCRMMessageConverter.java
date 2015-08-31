@@ -22,7 +22,6 @@ public class ActivityCRMMobileToCRMMessageConverter extends CRMMobileToCRMMessag
 
     static {
             actTypes.put("Email", "INF_EMAIL_OUT" );
-
             actTypes.put("Meeting","INF_MEETING");
             actTypes.put("Call", "INF_PHONE_CALL_IN");
             actTypes.put("Task", "INF_TASK");
