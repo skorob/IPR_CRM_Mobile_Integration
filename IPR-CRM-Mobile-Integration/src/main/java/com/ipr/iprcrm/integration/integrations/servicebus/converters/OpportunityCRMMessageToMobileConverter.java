@@ -65,7 +65,7 @@ public class OpportunityCRMMessageToMobileConverter extends CRMMessageToMobileCo
             String opptyCloseDate = getPropertyValue(message, "OPPTY_CLOSE_DATE");
             if(StringUtils.isNotEmpty(opptyCloseDate)) {
                 Calendar calendar = Calendar.getInstance();
-                calendar.setTime(new SimpleDateFormat(OpportunityCRMMessageToMobileConverter.XML_DATE_FORMAT).parse(opptyCloseDate));
+                calendar.setTime(new SimpleDateFormat(XML_DATE_FORMAT).parse(opptyCloseDate));
                 opportunityData.CloseDate = calendar.getTime();
             }
 

@@ -107,10 +107,7 @@ public class ActivityCRMMobileToCRMMessageConverter extends CRMMobileToCRMMessag
         fillData(activityData, of, message);
 
 
-        Property entType = of.createProperty();
-        entType.setName("ENTITY_TYPE");
-        entType.setValue("INF_ACTIVITY");
-        message.getPropertyList().getProperty().add(entType);
+
 
 
 
