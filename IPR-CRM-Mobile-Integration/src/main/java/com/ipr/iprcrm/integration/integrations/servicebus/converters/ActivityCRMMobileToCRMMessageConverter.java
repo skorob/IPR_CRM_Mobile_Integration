@@ -27,8 +27,6 @@ public class ActivityCRMMobileToCRMMessageConverter extends CRMMobileToCRMMessag
             actTypes.put("Task", "INF_TASK");
     }
 
-
-
     public Message convert(Activity activity) {
         ObjectFactory of = new ObjectFactory();
 
@@ -84,21 +82,21 @@ public class ActivityCRMMobileToCRMMessageConverter extends CRMMobileToCRMMessag
         if(activityData.Opportunity!=null) {
             Property opportunityRef = of.createProperty();
             opportunityRef.setName("INF_OPPORTUNITY");
-            opportunityRef.setValue(activityData.Opportunity.ExternalId);
+            opportunityRef.setValue(createRefence(activityData.Opportunity) );
             message.getPropertyList().getProperty().add(opportunityRef);
         }
 
         if(activityData.Contact!=null) {
             Property contactRef = of.createProperty();
             contactRef.setName("INF_CONTACT");
-            contactRef.setValue(activityData.Contact.ExternalId);
+            contactRef.setValue(createRefence(activityData.Contact));
             message.getPropertyList().getProperty().add(contactRef);
         }
 
         if(activityData.Employee!=null) {
             Property employeeRef = of.createProperty();
             employeeRef.setName("SYS_USER");
-            employeeRef.setValue(activityData.Employee.ExternalId);
+            employeeRef.setValue(createRefence(activityData.Employee));
             message.getPropertyList().getProperty().add(employeeRef);
         }
 
@@ -112,4 +110,6 @@ public class ActivityCRMMobileToCRMMessageConverter extends CRMMobileToCRMMessag
 
         return message;
     }
+
+
 }

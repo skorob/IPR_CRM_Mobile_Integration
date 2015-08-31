@@ -4,14 +4,10 @@ import com.ipr.iprcrm.integration.integrations.servicebus.dto.*;
 import com.ipr.pa.policyclient.ws.crystal.schemas.Message;
 import com.ipr.pa.policyclient.ws.crystal.schemas.ObjectFactory;
 import com.ipr.pa.policyclient.ws.crystal.schemas.Property;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.stereotype.Component;
 
 import javax.xml.bind.DatatypeConverter;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
@@ -83,15 +79,15 @@ public class OpportunityCRMMobileToCRMMessageConverter extends CRMMobileToCRMMes
         if(opportunityData.Account!=null) {
             Property accountRef = of.createProperty();
             accountRef.setName("INF_COMPANY");
-            accountRef.setValue(opportunityData.Account.ExternalId);
+            accountRef.setValue(createRefence(opportunityData.Account));
             message.getPropertyList().getProperty().add(accountRef);
         }
 
         if(opportunityData.Contacts!=null) {
-            for(ContactRef contactRef : opportunityData.Contacts) {
+            for(Reference reference : opportunityData.Contacts) {
                 Property contactCRMRef = of.createProperty();
                 contactCRMRef.setName("INF_CONTACT");
-                contactCRMRef.setValue(contactRef.ExternalId);
+                contactCRMRef.setValue(createRefence(reference));
                 message.getPropertyList().getProperty().add(contactCRMRef);
             }
         }

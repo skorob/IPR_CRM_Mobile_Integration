@@ -12,9 +12,9 @@ public class ActivityData extends CRMMobileDataModel {
     public Date PlannedDate;
     public String Type;
     public String Status;
-    public AccountRef Opportunity;
-    public AccountRef Contact;
-    public AccountRef Employee;
+    public Reference Opportunity;
+    public Reference Contact;
+    public Reference Employee;
 
 
 

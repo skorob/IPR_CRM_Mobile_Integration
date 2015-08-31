@@ -11,9 +11,9 @@ public class EmployeeData extends CRMMobileDataModel {
     public Date Title;
     public String Login;
     public String Status;
-    public AccountRef Opportunity;
-    public AccountRef Contact;
-    public AccountRef Employee;
+    public Reference Opportunity;
+    public Reference Contact;
+    public Reference Employee;
 
 
 

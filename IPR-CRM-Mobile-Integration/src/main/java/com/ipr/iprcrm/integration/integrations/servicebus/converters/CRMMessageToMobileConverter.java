@@ -68,4 +68,18 @@ public abstract class CRMMessageToMobileConverter <T extends CRMMobileModel> {
 
         }
     }
+
+    protected Reference parseIdToRef(String value) {
+        Reference ref = new Reference();
+        String [] ids = value.split("|");
+        if(ids.length>0) {
+            ref.ExternalId = ids[0];
+        }
+
+        if(ids.length > 1) {
+            ref.Id = ids[1];
+        }
+
+        return  ref;
+    }
 }

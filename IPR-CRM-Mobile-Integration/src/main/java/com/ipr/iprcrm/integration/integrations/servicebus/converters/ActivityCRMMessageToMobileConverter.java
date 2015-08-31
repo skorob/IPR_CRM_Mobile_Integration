@@ -72,14 +72,11 @@ public class ActivityCRMMessageToMobileConverter extends CRMMessageToMobileConve
         activityData.Type = actTypes.get(getPropertyValue(message, "ENTITY_TYPE"));
         activityData.Status = actStatus.get(getPropertyValue(message, "ACT_STATUS"));
 
-        activityData.Opportunity = new AccountRef();
-        activityData.Opportunity.ExternalId =  getPropertyValue(message, "INF_OPPORTUNITY");
+        activityData.Opportunity =  parseIdToRef(getPropertyValue(message, "INF_OPPORTUNITY"));
 
-        activityData.Contact = new AccountRef();
-        activityData.Contact.ExternalId = getPropertyValue(message, "INF_CONTACT");
+        activityData.Contact = parseIdToRef(getPropertyValue(message, "INF_CONTACT"));
 
-        activityData.Employee = new AccountRef();
-        activityData.Employee.ExternalId = getPropertyValue(message, "SYS_USER");
+        activityData.Employee = parseIdToRef(getPropertyValue(message, "SYS_USER"));
 
         return activity;
     }

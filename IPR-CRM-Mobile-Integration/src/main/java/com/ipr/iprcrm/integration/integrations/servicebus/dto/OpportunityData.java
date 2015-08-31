@@ -13,8 +13,8 @@ public class OpportunityData extends CRMMobileDataModel {
     public Date CloseDate;
     public double Probability;
     public String SalesStage;
-    public AccountRef Account;
-    public List<ContactRef> Contacts;
+    public Reference Account;
+    public List<Reference> Contacts;
 
 
 }

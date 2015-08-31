@@ -43,8 +43,7 @@ public class ContactCRMMessageToMobileConverter extends CRMMessageToMobileConver
         contactData.JobTitle = getPropertyValue(message, "CONTACT_JOB_TITLE");
         contactData.IsPrimary = StringUtils.isNotEmpty(getPropertyValue(message, "CONTACT_IS_PRIMARY"));
 
-        contactData.accountRef = new AccountRef();
-        contactData.accountRef.ExternalId =  getPropertyValue(message, "INF_COMPANY");
+        contactData.accountRef =  this.parseIdToRef(getPropertyValue(message, "INF_COMPANY"));
 
         for(Property p : message.getPropertyList().getProperty()) {
             assignChannel(message, p.getName(), contactData);

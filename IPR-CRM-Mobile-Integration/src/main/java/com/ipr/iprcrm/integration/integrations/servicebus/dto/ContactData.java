@@ -13,7 +13,7 @@ public class ContactData extends CRMMobileDataModel {
     public boolean IsPrimary;
     public String EmployeeCount;
     @SerializedName("Account")
-    public AccountRef accountRef;
+    public Reference accountRef;
 
 
 }

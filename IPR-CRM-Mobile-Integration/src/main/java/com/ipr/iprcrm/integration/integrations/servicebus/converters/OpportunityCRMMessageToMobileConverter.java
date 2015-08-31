@@ -7,15 +7,12 @@ import com.ipr.pa.policyclient.ws.crystal.schemas.Message;
 import com.ipr.pa.policyclient.ws.crystal.schemas.Property;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
-import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.stereotype.Component;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by os on 8/21/2015.
@@ -75,20 +72,20 @@ public class OpportunityCRMMessageToMobileConverter extends CRMMessageToMobileCo
         opportunityData.Probability = NumberUtils.toDouble(getPropertyValue(message, "OPPTY_PROBABILITY"), 0);
         opportunityData.SalesStage = companyTypes.get(getPropertyValue(message, "SALES_STAGE"));
 
-        opportunityData.Account = new AccountRef();
-        opportunityData.Account.ExternalId =  getPropertyValue(message, "INF_COMPANY");
+        opportunityData.Account = parseIdToRef(getPropertyValue(message, "INF_COMPANY"));
 
         opportunityData.Contacts = new ArrayList<>();
         for(Property p : message.getPropertyList().getProperty()) {
             if(p.getName().equals("INF_CONTACT")) {
-                ContactRef cf = new ContactRef();
-                cf.ExternalId = p.getValue();
+                Reference cf = parseIdToRef(p.getValue());
                 opportunityData.Contacts.add(cf);
             }
         }
 
         return opportunity;
     }
+
+
 
     @Override
     public String getOrder() {

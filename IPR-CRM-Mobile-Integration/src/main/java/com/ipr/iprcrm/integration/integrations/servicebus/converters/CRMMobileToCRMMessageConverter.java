@@ -2,6 +2,7 @@ package com.ipr.iprcrm.integration.integrations.servicebus.converters;
 
 import com.ipr.iprcrm.integration.integrations.servicebus.dto.Account;
 import com.ipr.iprcrm.integration.integrations.servicebus.dto.CRMMobileDataModel;
+import com.ipr.iprcrm.integration.integrations.servicebus.dto.Reference;
 import com.ipr.pa.policyclient.ws.crystal.schemas.Message;
 import com.ipr.pa.policyclient.ws.crystal.schemas.ObjectFactory;
 import com.ipr.pa.policyclient.ws.crystal.schemas.Property;
@@ -28,5 +29,10 @@ public abstract class CRMMobileToCRMMessageConverter <T> {
         entPk.setName("SYS_ENTITY_PK");
         entPk.setValue(cd.externalId);
         message.getPropertyList().getProperty().add(entPk);
+    }
+
+
+    protected String createRefence(Reference reference) {
+        return reference.ExternalId+"|"+reference.Id;
     }
 }
