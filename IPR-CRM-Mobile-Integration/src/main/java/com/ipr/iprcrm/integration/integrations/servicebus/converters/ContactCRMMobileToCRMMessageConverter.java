@@ -1,46 +1,38 @@
 package com.ipr.iprcrm.integration.integrations.servicebus.converters;
 
-import com.google.common.collect.HashBiMap;
 import com.ipr.iprcrm.integration.integrations.servicebus.dto.*;
 import com.ipr.pa.policyclient.ws.crystal.schemas.Message;
 import com.ipr.pa.policyclient.ws.crystal.schemas.ObjectFactory;
 import com.ipr.pa.policyclient.ws.crystal.schemas.Property;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
-import java.util.HashMap;
 import java.util.Map;
 
 /**
  * Created by os on 8/21/2015.
  */
 @Component
-public class ContactCRMMobileToCRMMessageConverter extends CRMMobileToCRMMessageConverter <Contact> {
+public class ContactCRMMobileToCRMMessageConverter extends CRMMobileToCRMMessageConverter <Contact,ContactData> {
 
 
-    public Message convert(Contact contact) {
-        ObjectFactory of = new ObjectFactory();
-
-
-        ContactData cd = contact.body.data.get(0);
-
-        Message message = convertToMessage(cd);
-        message.setCrystalCorrId(contact.header.Id);
-
-
-        Property corrId = of.createProperty();
-        corrId.setName("CORRELATION_ID");
-        corrId.setValue(contact.header.Id);
-        message.getPropertyList().getProperty().add(corrId);
-        return message;
-    }
+//    public Message convert(Contact contact) {
+//        ObjectFactory of = new ObjectFactory();
+//
+//        ContactData cd = contact.body.data.get(0);
+//
+//        Message message = convertToMessage(cd);
+//
+//        fillHeaders(contact, of, message);
+//
+//        return message;
+//    }
 
     @Override
     protected Map<String, String> getChannelsMapping() {
         return Mappings.getContactChannelsMappingCRMMobileToCRM();
     }
 
-    public Message convertToMessage( ContactData cd) {
+    public Message convertToMessage(ContactData cd) {
         ObjectFactory of = new ObjectFactory();
         Message message = of.createMessage();
         message.setPropertyList(of.createMessagePropertyList());
@@ -80,7 +72,7 @@ public class ContactCRMMobileToCRMMessageConverter extends CRMMobileToCRMMessage
             message.getPropertyList().getProperty().add(infCompany);
         }
 
-        fillData(cd, of, message);
+        fillCommonData(cd, of, message);
 
 
         Property entType = of.createProperty();

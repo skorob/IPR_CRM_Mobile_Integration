@@ -11,9 +11,9 @@ import org.junit.Test;
 import java.io.IOException;
 import java.util.UUID;
 
-public class TestSendAccountFromCRMToCRMMobile extends AbstractCrystalJMSTester {
+public class TestSendActionFromCRMToCRMMobile extends AbstractCrystalJMSTester {
 
-	private static final Logger log = Logger.getLogger(TestSendAccountFromCRMToCRMMobile.class);
+	private static final Logger log = Logger.getLogger(TestSendActionFromCRMToCRMMobile.class);
 	
 	@Test
 	public void test() {
@@ -51,10 +51,10 @@ public class TestSendAccountFromCRMToCRMMobile extends AbstractCrystalJMSTester 
 
 		CrystalMessage message = new CrystalMessage();
 		message.setQueryVersion("1.0");
-		message.setQueryName("PUSH_ACCOUNT");
+		message.setQueryName("PUSH_ACTIVITY");
 		message.setSystemName("CRM");
 		try {
-			message.setPayload(Resources.toString(Resources.getResource("xml/Account.xml"), Charsets.UTF_8));
+			message.setPayload(Resources.toString(Resources.getResource("xml/Activity.xml"), Charsets.UTF_8));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

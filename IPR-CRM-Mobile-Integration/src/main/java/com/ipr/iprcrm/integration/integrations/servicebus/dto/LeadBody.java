@@ -7,7 +7,6 @@ import java.util.List;
 /**
  * Created by os on 8/20/2015.
  */
-public class LeadBody {
-    @SerializedName("Data")
-    public List<CRMMobileDataModel> data;
+public class LeadBody extends CRMMobileBody< CRMMobileDataModel> {
+
 }

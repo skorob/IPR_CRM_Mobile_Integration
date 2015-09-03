@@ -5,8 +5,9 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 /**
- * Created by os on 8/20/2015.
+ * Created by os on 9/3/2015.
  */
-public class OpportunityBody extends  CRMMobileBody <OpportunityData> {
-
+public class CRMMobileBody <T extends CRMMobileDataModel > {
+    @SerializedName("Data")
+    public List<T> data;
 }

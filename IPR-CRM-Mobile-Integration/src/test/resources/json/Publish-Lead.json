@@ -1,80 +1,53 @@
-  {
-    "Header": {
-      "Id": "eda0ebe1-6bdd-4e72-bd53-594ad3574f66",
-      "Timestamp": "2015-08-26T15:24:57.168+00:00",
-      "Source": "iprcrmmobile"
-    },
-    "Body": {
-      "Data": [
-        {
-          "FirstName": "FName",
-          "LastName": "LName",
-          "Title": null,
-          "JobTitle": null,
-          "IsPrimary": false,
-          "Channels": [
-            {
-              "Id": "41648e8e-ac4a-45ad-9f77-5b4611778a9b",
-              "Type": "Email",
-              "Value": "john.green@123.lv"
-            },
-            {
-              "Id": "497c285e-ff94-435b-b2ba-2ab1a5ca5cb2",
-              "Type": "Phone",
-              "Value": "+371 29878787"
-            }
-          ],
-          "Account": {
-            "Id": "0fd637d5-3daa-4c5b-bf08-5ce28ac3c2a4",
-            "ExternalId": null
-          },
-          "__externalId": null,
-          "__order": 0,
-          "__type": "AccountContact",
-          "Id": "c8874ebb-b6fd-4f84-80a0-130cf94256b8"
+{
+  "Header": {
+    "Id": "47a6410b-83ae-406d-b0d5-c4a4ff3fb5e1",
+    "Timestamp": "2015-09-03T18:06:41.914+00:00",
+    "Source": "iprcrmmobile"
+  },
+  "Body": {
+    "Data": [
+      {
+        "Subject": "azure2",
+        "Description": null,
+        "Amount": 300.0,
+        "CloseDate": "2015-10-03T00:00:00.000+03:00",
+        "Probability": null,
+        "SalesStage": "Lead",
+        "Account": {
+          "Id": "75d30538-4439-4616-88d2-5be42ce2e91b",
+          "ExternalId": null
         },
-        {
-          "Subject": "The best opportunity",
-          "Description": null,
-          "Amount": null,
-          "CloseDate": null,
-          "Probability": null,
-          "SalesStage": "Lead",
-          "Account": {
-            "Id": "0fd637d5-3daa-4c5b-bf08-5ce28ac3c2a4",
+        "Contacts": [
+          {
+            "Id": "7c998128-95b2-40ed-bb01-1d2249df05cd",
             "ExternalId": null
-          },
-          "Contacts": [
-            {
-              "Id": "c8874ebb-b6fd-4f84-80a0-130cf94256b8",
-              "ExternalId": null
-            }
-          ],
-          "__externalId": null,
-          "__order": 1,
-          "__type": "Opportunity",
-          "Id": "538d23a1-ae1f-4c17-9b52-2c87039f581f"
+          }
+        ],
+        "__externalId": null,
+        "__order": 0,
+        "__type": "Opportunity",
+        "Id": "7e489f6f-97f8-409d-95f7-49289a1cfc5f"
+      },
+      {
+        "Subject": "test",
+        "Description": null,
+        "PlannedDate": "2015-09-04T21:05:51.490+03:00",
+        "Type": "Task",
+        "Status": "Planned",
+        "Opportunity": {
+          "Id": "7e489f6f-97f8-409d-95f7-49289a1cfc5f",
+          "ExternalId": null
         },
-        {
-          "Subject": "Schedule meeting on Monday",
-          "Description": null,
-          "PlannedDate": "2015-08-26T18:24:37.566+03:00",
-          "Type": null,
-          "Status": "Planned",
-          "Opportunity": {
-            "Id": "538d23a1-ae1f-4c17-9b52-2c87039f581f",
-            "ExternalId": null
-          },
-          "Contact": {
-            "Id": "c8874ebb-b6fd-4f84-80a0-130cf94256b8",
-            "ExternalId": null
-          },
-          "Employee": null,
-          "__externalId": null,
-          "__order": 2,
-          "__type": "Activity",
-          "Id": "587465de-7f68-4d1d-9571-8738f4d21703"
-        }
-      ]
-    }
+        "Contact": {
+          "Id": "7c998128-95b2-40ed-bb01-1d2249df05cd",
+          "ExternalId": null
+        },
+        "Employee": null,
+        "__externalId": null,
+        "__order": 1,
+        "__type": "Activity",
+        "Id": "b646e6ea-f94c-4cde-b4eb-360b7907abdc"
+      }
+    ]
   }
+}

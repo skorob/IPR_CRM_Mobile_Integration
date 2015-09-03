@@ -13,29 +13,29 @@ import java.util.*;
  * Created by os on 8/21/2015.
  */
 @Component
-public class AccountCRMMobileToCRMMessageConverter  extends CRMMobileToCRMMessageConverter <Account> {
+public class AccountCRMMobileToCRMMessageConverter  extends CRMMobileToCRMMessageConverter <Account, AccountData> {
 
-    public Message convert(Account account) {
-        ObjectFactory of = new ObjectFactory();
+//    public Message convert(Account account) {
+//        ObjectFactory of = new ObjectFactory();
+//
+//
+//        AccountData ad = account.body.data.get(0);
+//
+//        Message message = convertToMessage(ad);
+//
+//        fillHeaders(account, of, message);
+//
+//        return message;
+//    }
 
 
-        AccountData ad = account.body.data.get(0);
-
-        Message message = convertToMessage(ad);
-        message.setCrystalCorrId(account.header.Id);
-
-        Property corrId = of.createProperty();
-        corrId.setName("CORRELATION_ID");
-        corrId.setValue(account.header.Id);
-        message.getPropertyList().getProperty().add(corrId);
-
-        return message;
-    }
 
     @Override
     protected Map<String, String> getChannelsMapping() {
         return Mappings.getAccountChannelsMappingCRMMobileToCRM();
     }
+
+
 
     public Message convertToMessage(AccountData ad) {
         ObjectFactory of = new ObjectFactory();
@@ -76,7 +76,7 @@ public class AccountCRMMobileToCRMMessageConverter  extends CRMMobileToCRMMessag
         emplCount.setValue(ad.EmployeeCount);
         message.getPropertyList().getProperty().add(emplCount);
 
-        fillData(ad, of, message);
+        fillCommonData(ad, of, message);
 
 
         Property entType = of.createProperty();

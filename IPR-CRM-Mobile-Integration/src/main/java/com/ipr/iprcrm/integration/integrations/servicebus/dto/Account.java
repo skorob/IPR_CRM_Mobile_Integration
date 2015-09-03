@@ -5,8 +5,6 @@ import com.google.gson.annotations.SerializedName;
 /**
  * Created by os on 8/20/2015.
  */
-public class Account extends CRMMobileModel {
+public class Account extends CRMMobileModel <AccountBody> {
 
-    @SerializedName("Body")
-    public AccountBody body;
 }

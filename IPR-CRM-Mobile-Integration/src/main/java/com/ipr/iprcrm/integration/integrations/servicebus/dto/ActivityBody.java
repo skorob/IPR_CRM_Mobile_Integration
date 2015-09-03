@@ -7,7 +7,6 @@ import java.util.List;
 /**
  * Created by os on 8/20/2015.
  */
-public class ActivityBody {
-    @SerializedName("Data")
-    public List<ActivityData> data;
+public class ActivityBody extends  CRMMobileBody<ActivityData> {
+
 }

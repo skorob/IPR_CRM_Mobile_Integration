@@ -2,20 +2,29 @@ package com.iprcrm.inttests;
 
 import com.google.common.base.Charsets;
 import com.google.common.io.Resources;
+import com.ipr.iprcrm.integration.Application;
 import com.ipr.iprcrm.integration.integrations.servicebus.service.AzureConfiguration;
 import org.apache.log4j.Logger;
 import org.apache.qpid.amqp_1_0.jms.impl.QueueImpl;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.jms.*;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@SpringApplicationConfiguration(classes = Application.class)
 public class TestSendLeadFromCRMMobileToCRM {
 
 	private static final Logger log = Logger.getLogger(TestSendLeadFromCRMMobileToCRM.class);
-	
+
+	@Autowired
+	AzureConfiguration c;
 	@Test
 	public void test() throws Exception {
-		AzureConfiguration c = new AzureConfiguration();
+
 		ConnectionFactory cf = c.connectionFactory();
 		try {
 

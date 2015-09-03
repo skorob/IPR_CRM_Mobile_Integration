@@ -15,26 +15,20 @@ import java.util.Map;
  * Created by os on 8/21/2015.
  */
 @Component
-public class ActivityCRMMobileToCRMMessageConverter extends CRMMobileToCRMMessageConverter <Activity> {
+public class ActivityCRMMobileToCRMMessageConverter extends CRMMobileToCRMMessageConverter <Activity, ActivityData> {
 
 
-    public Message convert(Activity activity) {
-        ObjectFactory of = new ObjectFactory();
-
-
-        ActivityData opportunityData = activity.body.data.get(0);
-
-        Message message = convertToMessage(opportunityData);
-        message.setCrystalCorrId(activity.header.Id);
-
-
-        Property corrId = of.createProperty();
-        corrId.setName("CORRELATION_ID");
-        corrId.setValue(activity.header.Id);
-        message.getPropertyList().getProperty().add(corrId);
-
-        return message;
-    }
+//    public Message convert(Activity activity) {
+//        ObjectFactory of = new ObjectFactory();
+//
+//        ActivityData opportunityData = activity.body.data.get(0);
+//
+//        Message message = convertToMessage(opportunityData);
+//
+//        fillHeaders(activity, of, message);
+//
+//        return message;
+//    }
 
     @Override
     protected Map<String, String> getChannelsMapping() {
@@ -103,7 +97,7 @@ public class ActivityCRMMobileToCRMMessageConverter extends CRMMobileToCRMMessag
         }
 
 
-        fillData(activityData, of, message);
+        fillCommonData(activityData, of, message);
 
 
 

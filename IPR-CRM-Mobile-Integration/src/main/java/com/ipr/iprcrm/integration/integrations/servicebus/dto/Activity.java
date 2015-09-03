@@ -7,6 +7,4 @@ import com.google.gson.annotations.SerializedName;
  */
 public class Activity extends CRMMobileModel {
 
-    @SerializedName("Body")
-    public ActivityBody body;
 }

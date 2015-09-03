@@ -75,7 +75,7 @@ public class LeadCRMMobileToCRMMessageConverter {
             ObjectFactory of = new ObjectFactory();
             Property corrId = of.createProperty();
             corrId.setName("CORRELATION_ID");
-            corrId.setValue(lead.header.Id);
+            corrId.setValue(d.Id);
             crmMessage.getPropertyList().getProperty().add(corrId);
 
             Entity entity = convertToEntity(crmMessage);

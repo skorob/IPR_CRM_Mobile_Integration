@@ -15,27 +15,7 @@ import java.util.Map;
  * Created by os on 8/21/2015.
  */
 @Component
-public class OpportunityCRMMobileToCRMMessageConverter extends CRMMobileToCRMMessageConverter <Opportunity> {
-
-
-
-
-    public Message convert(Opportunity opportunity) {
-        ObjectFactory of = new ObjectFactory();
-
-        OpportunityData opportunityData = opportunity.body.data.get(0);
-
-        Message message = convertToMessage(opportunityData);
-        message.setCrystalCorrId(opportunity.header.Id);
-
-
-        Property corrId = of.createProperty();
-        corrId.setName("CORRELATION_ID");
-        corrId.setValue(opportunity.header.Id);
-        message.getPropertyList().getProperty().add(corrId);
-
-        return message;
-    }
+public class OpportunityCRMMobileToCRMMessageConverter extends CRMMobileToCRMMessageConverter <Opportunity, OpportunityData> {
 
     @Override
     protected Map<String, String> getChannelsMapping() {
@@ -104,7 +84,7 @@ public class OpportunityCRMMobileToCRMMessageConverter extends CRMMobileToCRMMes
         entType.setValue("INF_OPPORTUNITY");
         message.getPropertyList().getProperty().add(entType);
 
-        fillData(opportunityData, of, message);
+        fillCommonData(opportunityData, of, message);
 
         return message;
     }

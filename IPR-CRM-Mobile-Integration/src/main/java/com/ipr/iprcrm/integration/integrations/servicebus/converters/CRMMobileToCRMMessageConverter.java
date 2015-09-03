@@ -1,9 +1,6 @@
 package com.ipr.iprcrm.integration.integrations.servicebus.converters;
 
-import com.ipr.iprcrm.integration.integrations.servicebus.dto.Account;
-import com.ipr.iprcrm.integration.integrations.servicebus.dto.CRMMobileDataModel;
-import com.ipr.iprcrm.integration.integrations.servicebus.dto.Channel;
-import com.ipr.iprcrm.integration.integrations.servicebus.dto.Reference;
+import com.ipr.iprcrm.integration.integrations.servicebus.dto.*;
 import com.ipr.pa.policyclient.ws.crystal.schemas.Message;
 import com.ipr.pa.policyclient.ws.crystal.schemas.ObjectFactory;
 import com.ipr.pa.policyclient.ws.crystal.schemas.Property;
@@ -15,14 +12,28 @@ import java.util.Map;
 /**
  * Created by os on 8/25/2015.
  */
-public abstract class CRMMobileToCRMMessageConverter <T> {
+public abstract class CRMMobileToCRMMessageConverter <T extends  CRMMobileModel, E extends  CRMMobileDataModel> {
 
 
-    public abstract Message convert(T object);
+    public Message convert(T object) {
+
+            E crmMobileDataModel = (E)object.body.data.get(0);
+
+            ObjectFactory of = new ObjectFactory();
+
+            Message message = convertToMessage(crmMobileDataModel);
+
+            fillHeaders(object, of, message);
+
+            return message;
+
+    }
 
     protected abstract Map<String, String> getChannelsMapping();
 
-    protected void fillData(CRMMobileDataModel cd, ObjectFactory of, Message message) {
+    public abstract Message convertToMessage(E opportunityData);
+
+    protected void fillCommonData(CRMMobileDataModel cd, ObjectFactory of, Message message) {
         Property extId = of.createProperty();
         extId.setName("CRM_ID");
         extId.setValue(cd.externalId);
@@ -37,6 +48,17 @@ public abstract class CRMMobileToCRMMessageConverter <T> {
         entPk.setName("SYS_ENTITY_PK");
         entPk.setValue(cd.externalId);
         message.getPropertyList().getProperty().add(entPk);
+    }
+
+
+
+    protected void fillHeaders(CRMMobileModel crmMobileModel, ObjectFactory of, Message message) {
+        message.setCrystalCorrId(crmMobileModel.header.Id);
+
+        Property corrId = of.createProperty();
+        corrId.setName("CORRELATION_ID");
+        corrId.setValue(crmMobileModel.header.Id);
+        message.getPropertyList().getProperty().add(corrId);
     }
 
 
