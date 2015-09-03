@@ -1,5 +1,6 @@
 package com.ipr.iprcrm.integration.integrations.servicebus.converters;
 
+import com.google.common.collect.HashBiMap;
 import com.ipr.iprcrm.integration.integrations.servicebus.dto.*;
 import com.ipr.pa.policyclient.ws.crystal.schemas.Message;
 import com.ipr.pa.policyclient.ws.crystal.schemas.ObjectFactory;
@@ -16,14 +17,16 @@ import java.util.Map;
 @Component
 public class ContactCRMMobileToCRMMessageConverter extends CRMMobileToCRMMessageConverter <Contact> {
 
-    private  static Map<String, String> channelsMapping = new HashMap<>();
+    public  static HashBiMap<String, String> channelsMapping = HashBiMap.create ();
     static {
-        channelsMapping.put("Linkedin","COMPANY_LINKEDIN");
-        channelsMapping.put("Site","COMPANY_WEB");
+        channelsMapping.put("Linkedin","CONTACT_LINKEDIN");
+        channelsMapping.put("Skype","CONTACT_SKYPE");
+        channelsMapping.put("Phone","PHONE_NUMBER");
         channelsMapping.put("Email","EMAIL_ADDRESS");
-        channelsMapping.put("Facebook","COMPANY_FACEBOOK");
-        channelsMapping.put("Twitter","COMPANY_TWITTER");
+        channelsMapping.put("Facebook","CONTACT_FACEBOOK");
+        channelsMapping.put("Twitter","CONTACT_TWITTER");
     }
+
 
     private  static Map<String, String> companyTypes = new HashMap<>();
     static {
@@ -51,6 +54,11 @@ public class ContactCRMMobileToCRMMessageConverter extends CRMMobileToCRMMessage
         corrId.setValue(contact.header.Id);
         message.getPropertyList().getProperty().add(corrId);
         return message;
+    }
+
+    @Override
+    protected Map<String, String> getChannelsMapping() {
+        return channelsMapping;
     }
 
     public Message convertToMessage( ContactData cd) {
@@ -103,15 +111,7 @@ public class ContactCRMMobileToCRMMessageConverter extends CRMMobileToCRMMessage
 
 
 
-        for(Channel ch : cd.channels) {
-            Property channel = of.createProperty();
-            String channelName = channelsMapping.get(ch.Type);
-            if(StringUtils.isNotEmpty(channelName)) {
-                channel.setValue(ch.Value);
-                channel.setName(channelName);
-                message.getPropertyList().getProperty().add(channel);
-            }
-        }
+        assignChannels(cd, of, message);
 
         return message;
     }

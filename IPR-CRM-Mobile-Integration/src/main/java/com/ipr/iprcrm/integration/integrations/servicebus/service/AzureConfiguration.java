@@ -9,9 +9,9 @@ import com.ipr.iprcrm.integration.integrations.servicebus.converters.*;
 import com.ipr.iprcrm.integration.integrations.servicebus.listener.DMProcessor;
 import com.ipr.iprcrm.integration.integrations.servicebus.listener.EventListener;
 import com.ipr.iprcrm.integration.integrations.servicebus.listener.OrderListener;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.qpid.amqp_1_0.jms.impl.QueueImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.Bean;
@@ -31,13 +31,12 @@ import java.util.Hashtable;
 @Configuration
 public class AzureConfiguration {
 
-    Log log = LogFactory.getLog(AzureConfiguration.class);
+    Logger log = LoggerFactory.getLogger(AzureConfiguration.class);
 
     @Autowired
     OrderListener orderListener;
 
-    @Autowired
-    DMProcessor processor;
+
 
     @Autowired
     Config config;
@@ -85,21 +84,7 @@ public class AzureConfiguration {
     }
 //
 //
-    @Bean
-    public EndpointTypeConfiguration endpointTypeConfiguration() {
-        EndpointTypeEntity endpointTypeEntity = new EndpointTypeEntity();
-        endpointTypeEntity.setFactory("ConnectionFactory");
-        endpointTypeEntity.setFactoryInitial("org.hornetq.jms.client.HornetQJMSConnectionFactory");
-        endpointTypeEntity.setProviderUrl("http://192.168.2.223:5445");
-        endpointTypeEntity.setSecurityCredentials("guest");
-        endpointTypeEntity.setSecurityPrincipal("guest");
-        EndpointTypeConfiguration config = EndpointTypesBuilder
-                .buildEndPointTypeConfiguration(endpointTypeEntity);
 
-        config.registerQueueProcessor(processor, "Crystal!CRM_TO_MOBILE_INT_SERVICE", 1);
-
-        return config;
-    }
 
 
 

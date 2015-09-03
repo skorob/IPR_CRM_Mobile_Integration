@@ -3,6 +3,8 @@ package com.ipr.iprcrm.integration.integrations.servicebus.service;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.qpid.amqp_1_0.jms.impl.QueueImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +21,7 @@ public class CRMMobileService {
     ConnectionFactory connectionFactory;
 
 
-    Log log = LogFactory.getLog(CRMMobileService.class);
+    Logger log = LoggerFactory.getLogger(CRMMobileService.class);
 
 
     public void send(String gson) throws Exception {

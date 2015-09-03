@@ -1,19 +1,14 @@
 package com.ipr.iprcrm.integration.integrations.servicebus.converters;
 
-import com.google.common.collect.BiMap;
-import com.google.common.collect.HashBiMap;
 import com.ipr.iprcrm.integration.integrations.servicebus.dto.*;
 import com.ipr.pa.policyclient.ws.crystal.schemas.Message;
-import com.ipr.pa.policyclient.ws.crystal.schemas.Property;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.stereotype.Component;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -22,25 +17,7 @@ import java.util.Map;
 @Component
 public class ActivityCRMMessageToMobileConverter extends CRMMessageToMobileConverter<Activity> {
 
-    public   static BiMap<String, String> actStatus = HashBiMap.create();
 
-    static {
-        actStatus.put("CANCELLED", "Cancelled");
-        actStatus.put("DONE", "Done");
-        actStatus.put("OPEN", "Open");
-        actStatus.put("PLANNED", "Planned");
-    }
-
-    public   static Map<String, String> actTypes = new HashMap<>();
-
-    static {
-        actTypes.put("INF_EMAIL_OUT", "Email");
-        actTypes.put("INF_EMAIL_IN", "Email");
-        actTypes.put("INF_MEETING","Meeting");
-        actTypes.put("INF_PHONE_CALL_IN","Call");
-        actTypes.put("INF_PHONE_CALL_OUT","Call");
-        actTypes.put("INF_TASK","Task");
-    }
 
     public Activity convert(Message message) {
         Activity activity = new Activity();
@@ -69,8 +46,8 @@ public class ActivityCRMMessageToMobileConverter extends CRMMessageToMobileConve
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        activityData.Type = actTypes.get(getPropertyValue(message, "ENTITY_TYPE"));
-        activityData.Status = actStatus.get(getPropertyValue(message, "ACT_STATUS"));
+        activityData.Type = Mappings.getActivityTypeMappingCRMToCRMMobile().get(getPropertyValue(message, "ENTITY_TYPE"));
+        activityData.Status = Mappings.getActivityStatusMappingCRMToCRMMobile().get(getPropertyValue(message, "ACT_STATUS"));
 
         activityData.Opportunity =  parseIdToRef(getPropertyValue(message, "INF_OPPORTUNITY"));
 
@@ -89,6 +66,11 @@ public class ActivityCRMMessageToMobileConverter extends CRMMessageToMobileConve
     @Override
     public String getType() {
         return "Activity";
+    }
+
+    @Override
+    protected Map<String, String> getChannelsMapping() {
+        throw new UnsupportedOperationException();
     }
 
 

@@ -15,26 +15,6 @@ import java.util.*;
 @Component
 public class AccountCRMMobileToCRMMessageConverter  extends CRMMobileToCRMMessageConverter <Account> {
 
-    private  static Map<String, String> channelsMapping = new HashMap<>();
-    static {
-        channelsMapping.put("Linkedin","COMPANY_LINKEDIN");
-        channelsMapping.put("Site","COMPANY_WEB");
-        channelsMapping.put("Email","EMAIL_ADDRESS");
-        channelsMapping.put("Facebook","COMPANY_FACEBOOK");
-        channelsMapping.put("Twitter","COMPANY_TWITTER");
-    }
-
-    private  static Map<String, String> companyTypes = new HashMap<>();
-    static {
-        companyTypes.put("Competitor","COMPETITOR");
-        companyTypes.put("Partner","PARTNER");
-        companyTypes.put("Client","CLIENT");
-        companyTypes.put("Reseller","RESELLER");
-        companyTypes.put("Prospect","PROSPECT");
-        companyTypes.put("Other","OTHER");
-    }
-
-
     public Message convert(Account account) {
         ObjectFactory of = new ObjectFactory();
 
@@ -50,6 +30,11 @@ public class AccountCRMMobileToCRMMessageConverter  extends CRMMobileToCRMMessag
         message.getPropertyList().getProperty().add(corrId);
 
         return message;
+    }
+
+    @Override
+    protected Map<String, String> getChannelsMapping() {
+        return Mappings.getAccountChannelsMappingCRMMobileToCRM();
     }
 
     public Message convertToMessage(AccountData ad) {
@@ -75,9 +60,9 @@ public class AccountCRMMobileToCRMMessageConverter  extends CRMMobileToCRMMessag
         Property type = of.createProperty();
         type.setName("COMPANY_TYPE");
         if(StringUtils.isEmpty(ad.Type)) {
-            type.setValue(companyTypes.get("Other"));
+            type.setValue(Mappings.getCompanyTypesMappingCRMMobileToCRM().get("Other"));
         } else {
-            type.setValue(companyTypes.get(ad.Type));
+            type.setValue(Mappings.getCompanyTypesMappingCRMMobileToCRM().get(ad.Type));
         }
         message.getPropertyList().getProperty().add(type);
 
@@ -99,17 +84,10 @@ public class AccountCRMMobileToCRMMessageConverter  extends CRMMobileToCRMMessag
         entType.setValue("INF_COMPANY");
         message.getPropertyList().getProperty().add(entType);
 
+        assignChannels(ad, of, message);
 
-
-        for(Channel ch : ad.channels) {
-            Property channel = of.createProperty();
-            String channelName = channelsMapping.get(ch.Type);
-            if(StringUtils.isNotEmpty(channelName)) {
-                channel.setValue(ch.Value);
-                channel.setName(channelName);
-                message.getPropertyList().getProperty().add(channel);
-            }
-        }
         return message;
     }
+
+
 }

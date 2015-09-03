@@ -38,6 +38,11 @@ public class OpportunityCRMMobileToCRMMessageConverter extends CRMMobileToCRMMes
         return message;
     }
 
+    @Override
+    protected Map<String, String> getChannelsMapping() {
+        throw new UnsupportedOperationException();
+    }
+
     public Message convertToMessage(OpportunityData opportunityData) {
         ObjectFactory of = new ObjectFactory();
         Message message = of.createMessage();

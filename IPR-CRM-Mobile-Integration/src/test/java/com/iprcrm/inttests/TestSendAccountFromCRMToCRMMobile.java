@@ -54,7 +54,7 @@ public class TestSendAccountFromCRMToCRMMobile extends AbstractCrystalJMSTester 
 		message.setQueryName("PUSH_ACCOUNT");
 		message.setSystemName("CRM");
 		try {
-			message.setPayload(Resources.toString(Resources.getResource("xml/Account.xml"), Charsets.UTF_8));
+			message.setPayload(Resources.toString(Resources.getResource("xml/Account1.xml"), Charsets.UTF_8));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

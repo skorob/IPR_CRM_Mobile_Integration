@@ -13,6 +13,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Map;
 
 /**
  * Created by os on 8/21/2015.
@@ -95,6 +96,11 @@ public class OpportunityCRMMessageToMobileConverter extends CRMMessageToMobileCo
     @Override
     public String getType() {
         return "Opportunity";
+    }
+
+    @Override
+    protected Map<String, String> getChannelsMapping() {
+        throw new UnsupportedOperationException();
     }
 
 

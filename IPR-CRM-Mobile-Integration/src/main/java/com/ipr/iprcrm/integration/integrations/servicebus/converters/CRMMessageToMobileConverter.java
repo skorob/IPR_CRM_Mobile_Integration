@@ -17,16 +17,7 @@ public abstract class CRMMessageToMobileConverter <T extends CRMMobileModel> {
     public abstract String getOrder();
     public abstract String getType();
 
-    private  static Map<String, String> channelsMapping = new HashMap<>();
-
-
-    static {
-        channelsMapping.put("COMPANY_LINKEDIN","Linkedin");
-        channelsMapping.put("COMPANY_WEB","Site");
-        channelsMapping.put("EMAIL_ADDRESS","Email");
-        channelsMapping.put("COMPANY_FACEBOOK","Facebook");
-        channelsMapping.put("COMPANY_TWITTER","Twitter");
-    }
+    protected abstract Map<String, String> getChannelsMapping();
 
 
     public void init(CRMMobileModel crmMobileModel, Message message, CRMMobileDataModel crmMobileDataModel) {
@@ -55,7 +46,7 @@ public abstract class CRMMessageToMobileConverter <T extends CRMMobileModel> {
         String value = getPropertyValue(message, channelType);
         if(StringUtils.isNotEmpty(value)) {
 
-            String mobileChannelType = channelsMapping.get(channelType);
+            String mobileChannelType = getChannelsMapping().get(channelType);
             if(StringUtils.isNotEmpty(mobileChannelType)) {
                 if(accountData.channels == null) {
                     accountData.channels = new ArrayList<>();
@@ -70,15 +61,19 @@ public abstract class CRMMessageToMobileConverter <T extends CRMMobileModel> {
     }
 
     protected Reference parseIdToRef(String value) {
-        Reference ref = new Reference();
-        String [] ids = value.split("|");
-        if(ids.length>0) {
-            ref.ExternalId = ids[0];
+        Reference ref = null;
+        if(StringUtils.isNotEmpty(value)) {
+            ref =  new Reference();
+            String [] ids = value.split("\\|");
+            if(ids.length>0) {
+                ref.ExternalId = ids[0];
+            }
+
+            if(ids.length > 1) {
+                ref.Id = ids[1];
+            }
         }
 
-        if(ids.length > 1) {
-            ref.Id = ids[1];
-        }
 
         return  ref;
     }

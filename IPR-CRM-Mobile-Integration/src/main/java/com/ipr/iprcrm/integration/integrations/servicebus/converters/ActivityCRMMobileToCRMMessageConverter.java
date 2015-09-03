@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 
 import javax.xml.bind.DatatypeConverter;
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -17,15 +16,6 @@ import java.util.Map;
 @Component
 public class ActivityCRMMobileToCRMMessageConverter extends CRMMobileToCRMMessageConverter <Activity> {
 
-    private  static Map<String, String> actStatus = ActivityCRMMessageToMobileConverter.actStatus.inverse();
-    private  static Map<String, String> actTypes = new HashMap<>();
-
-    static {
-            actTypes.put("Email", "INF_EMAIL_OUT" );
-            actTypes.put("Meeting","INF_MEETING");
-            actTypes.put("Call", "INF_PHONE_CALL_IN");
-            actTypes.put("Task", "INF_TASK");
-    }
 
     public Message convert(Activity activity) {
         ObjectFactory of = new ObjectFactory();
@@ -43,6 +33,11 @@ public class ActivityCRMMobileToCRMMessageConverter extends CRMMobileToCRMMessag
         message.getPropertyList().getProperty().add(corrId);
 
         return message;
+    }
+
+    @Override
+    protected Map<String, String> getChannelsMapping() {
+        throw new UnsupportedOperationException();
     }
 
     public Message convertToMessage(ActivityData activityData) {
@@ -71,12 +66,12 @@ public class ActivityCRMMobileToCRMMessageConverter extends CRMMobileToCRMMessag
 
         Property type = of.createProperty();
         type.setName("ENTITY_TYPE");
-        type.setValue(actTypes.get(activityData.Type));
+        type.setValue(Mappings.getActivityTypeMappingCRMMobileToCRM().get(activityData.Type));
         message.getPropertyList().getProperty().add(type);
 
         Property status = of.createProperty();
         status.setName("ACT_STATUS");
-        status.setValue(actStatus.get(activityData.Status));
+        status.setValue(Mappings.getActivityStatusMappingCRMMobileToCRM().get(activityData.Status));
         message.getPropertyList().getProperty().add(status);
 
         if(activityData.Opportunity!=null) {

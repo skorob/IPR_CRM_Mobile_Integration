@@ -61,5 +61,10 @@ public class ContactCRMMessageToMobileConverter extends CRMMessageToMobileConver
         return "AccountContact";
     }
 
+    @Override
+    protected Map<String, String> getChannelsMapping() {
+        return ContactCRMMobileToCRMMessageConverter.channelsMapping.inverse();
+    }
+
 
 }

@@ -1,19 +1,21 @@
 <Message xmlns="http://pa.ipr.com/policyclient/ws/crystal/schemas">
-    <crystalCorrId>89f308dc-90cb-40b6-9f74-b21321dad032</crystalCorrId>
+    <crystalCorrId>42684844-34a8-45ed-87a1-82bb0a2d6cb1</crystalCorrId>
     <PropertyList>
         <Property name="ENTITY_TYPE">INF_OPPORTUNITY</Property>
         <Property name="ENTITY_STATUS">ACTIVE</Property>
-        <Property name="CRM_ID">58822708</Property>
-        <Property name="OPPTY_NOTES">&lt;2015-08-26 15:56:49: StudyUser1(studyuser1@ipr.local)&gt; Description
+        <Property name="CRM_ID">58830708</Property>
+        <Property name="OPPTY_NOTES">&lt;2015-08-27 14:42:19: StudyUser1(studyuser1@ipr.local)&gt; Test opp 2
         </Property>
-        <Property name="OPPTY_FORECAST_AMOUNT">11.00</Property>
-        <Property name="OPPTY_CLOSE_DATE">2015-08-26T12:00:00+03:00</Property>
-        <Property name="SALES_STAGE">KEY_BELIEF_ANALYSIS</Property>
-        <Property name="OPPTY_NAME">Test opp</Property>
+        <Property name="OPPTY_FORECAST_AMOUNT">40.00</Property>
+        <Property name="OPPTY_CLOSE_DATE">2015-08-27T12:00:00+03:00</Property>
+        <Property name="SALES_STAGE">LOST</Property>
+        <Property name="OPPTY_NAME">Test opp 2 updated in mobile3</Property>
         <Property name="OPPTY_PROBABILITY">20</Property>
-        <Property name="INF_COMPANY">58818708</Property>
-        <Property name="INF_CONTACT">58817709</Property>
-        <Property name="INF_CONTACT">58758710</Property>
+        <Property name="SYS_ENTITY_PK">58830708</Property>
+        <Property name="CORRELATION_ID">754e0c39-2a99-449b-9ddd-235678fc9bfb</Property>
+        <Property name="INF_COMPANY">58817708|B743BBF6-A602-4B13-AA19-C357199CE565</Property>
+        <Property name="INF_CONTACT">58819712|</Property>
+        <Property name="INF_CONTACT">58817709|F3844F63-E4BA-4B17-9BF2-6112E362E206</Property>
     </PropertyList>
     <status xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
 </Message>
