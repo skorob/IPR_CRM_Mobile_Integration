@@ -4,6 +4,7 @@ import com.ipr.iprcrm.integration.integrations.servicebus.dto.*;
 import com.ipr.pa.policyclient.ws.crystal.schemas.Message;
 import com.ipr.pa.policyclient.ws.crystal.schemas.ObjectFactory;
 import com.ipr.pa.policyclient.ws.crystal.schemas.Property;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
 import javax.xml.bind.DatatypeConverter;
@@ -71,8 +72,14 @@ public class ActivityCRMMobileToCRMMessageConverter extends CRMMobileToCRMMessag
 
         Property status = of.createProperty();
         status.setName("ACT_STATUS");
-        status.setValue(Mappings.getActivityStatusMappingCRMMobileToCRM().get(activityData.Status));
-        message.getPropertyList().getProperty().add(status);
+        if(StringUtils.isNotEmpty(activityData.Type)) {
+            if(activityData.Type.equals("Email")) {
+                status.setValue(Mappings.getActivityMailStatusMappingCRMMobileToCRM().get(activityData.Status));
+            } else {
+                status.setValue(Mappings.getActivityStatusMappingCRMMobileToCRM().get(activityData.Status));
+            }
+            message.getPropertyList().getProperty().add(status);
+        }
 
         if(activityData.Opportunity!=null) {
             Property opportunityRef = of.createProperty();

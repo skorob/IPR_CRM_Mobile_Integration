@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Message xmlns="http://pa.ipr.com/policyclient/ws/crystal/schemas">
-    <crystalCorrId>51e382d1-451c-4a48-8c37-4f5346cc7b59</crystalCorrId>
+    <crystalCorrId>5b336360-c820-4a6c-b502-cb09dc8293fb</crystalCorrId>
     <PropertyList>
-        <Property name="ENTITY_TYPE">INF_MAIL_OUT</Property>
+        <Property name="ENTITY_TYPE">INF_EMAIL_OUT</Property>
         <Property name="ENTITY_STATUS">ACTIVE</Property>
-        <Property name="CRM_ID">58891711</Property>
-        <Property name="ACT_TARGET_DATE">2015-09-11T12:00:00Z</Property>
-        <Property name="ACT_STATUS">PLANNED</Property>
-        <Property name="ACT_BODY">Mail activity description</Property>
-        <Property name="ACT_SUBJECT">Mail activity</Property>
+        <Property name="CRM_ID">58881708</Property>
+        <Property name="ACT_STATUS">DRAFT</Property>
+        <Property name="ACT_BODY">Email test text (changed test) changed again and again</Property>
+        <Property name="ACT_SUBJECT">Email test</Property>
+        <Property name="ACT_TARGET_DATE">2015-09-04T12:00:00Z</Property>
     </PropertyList>
     <status xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
 </Message>

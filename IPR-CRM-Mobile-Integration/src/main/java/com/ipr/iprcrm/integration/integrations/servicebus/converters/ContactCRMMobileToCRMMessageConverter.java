@@ -17,27 +17,6 @@ import java.util.Map;
 @Component
 public class ContactCRMMobileToCRMMessageConverter extends CRMMobileToCRMMessageConverter <Contact> {
 
-    public  static HashBiMap<String, String> channelsMapping = HashBiMap.create ();
-    static {
-        channelsMapping.put("Linkedin","CONTACT_LINKEDIN");
-        channelsMapping.put("Skype","CONTACT_SKYPE");
-        channelsMapping.put("Phone","PHONE_NUMBER");
-        channelsMapping.put("Email","EMAIL_ADDRESS");
-        channelsMapping.put("Facebook","CONTACT_FACEBOOK");
-        channelsMapping.put("Twitter","CONTACT_TWITTER");
-    }
-
-
-    private  static Map<String, String> companyTypes = new HashMap<>();
-    static {
-        companyTypes.put("Competitor","COMPETITOR");
-        companyTypes.put("Partner","PARTNER");
-        companyTypes.put("Client","CLIENT");
-        companyTypes.put("Reseller","RESELLER");
-        companyTypes.put("Prospect","PROSPECT");
-        companyTypes.put("Other","OTHER");
-    }
-
 
     public Message convert(Contact contact) {
         ObjectFactory of = new ObjectFactory();
@@ -58,7 +37,7 @@ public class ContactCRMMobileToCRMMessageConverter extends CRMMobileToCRMMessage
 
     @Override
     protected Map<String, String> getChannelsMapping() {
-        return channelsMapping;
+        return Mappings.getContactChannelsMappingCRMMobileToCRM();
     }
 
     public Message convertToMessage( ContactData cd) {

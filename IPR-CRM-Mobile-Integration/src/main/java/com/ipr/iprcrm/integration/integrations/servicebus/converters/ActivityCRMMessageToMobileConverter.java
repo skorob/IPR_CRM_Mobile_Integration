@@ -46,8 +46,18 @@ public class ActivityCRMMessageToMobileConverter extends CRMMessageToMobileConve
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        activityData.Type = Mappings.getActivityTypeMappingCRMToCRMMobile().get(getPropertyValue(message, "ENTITY_TYPE"));
-        activityData.Status = Mappings.getActivityStatusMappingCRMToCRMMobile().get(getPropertyValue(message, "ACT_STATUS"));
+        String entityType = getPropertyValue(message, "ENTITY_TYPE");
+        activityData.Type = Mappings.getActivityTypeMappingCRMToCRMMobile().get(entityType);
+
+        if(StringUtils.isNotEmpty(entityType)) {
+            if(entityType.equals("INF_EMAIL_OUT")) {
+                activityData.Status = Mappings.getActivityMailStatusMappingCRMToCRMMobile().get(getPropertyValue(message, "ACT_STATUS"));
+            } else {
+
+                activityData.Status = Mappings.getActivityStatusMappingCRMToCRMMobile().get(getPropertyValue(message, "ACT_STATUS"));
+            }
+
+        }
 
         activityData.Opportunity =  parseIdToRef(getPropertyValue(message, "INF_OPPORTUNITY"));
 

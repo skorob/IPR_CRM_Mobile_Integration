@@ -16,7 +16,6 @@ public class EventListener implements MessageListener {
     public void onMessage(javax.jms.Message message) {
         String json = null;
         try {
-            System.out.println("================ "+message +"ccc ");
             message.acknowledge();
         } catch (Exception e) {
             e.printStackTrace();

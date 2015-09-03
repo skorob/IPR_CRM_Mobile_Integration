@@ -34,7 +34,7 @@ public class Mappings {
         accountChannelsMappingCRMMobileToCRM.put("Phone", "PHONE_NUMBER");
     }
 
-    public   static BiMap<String, String> activityStatusCRMToCRMMobile = HashBiMap.create();
+    private   static BiMap<String, String> activityStatusCRMToCRMMobile = HashBiMap.create();
 
     static {
         activityStatusCRMToCRMMobile.put("CANCELLED", "Cancelled");
@@ -43,7 +43,16 @@ public class Mappings {
         activityStatusCRMToCRMMobile.put("PLANNED", "Planned");
     }
 
-    public   static Map<String, String> activityTypeCRMToCRMMobile = new HashMap<>();
+    private   static BiMap<String, String> activityMailStatusCRMToCRMMobile = HashBiMap.create();
+
+    static {
+        activityMailStatusCRMToCRMMobile.put("DRAFT", "Planned");
+        activityMailStatusCRMToCRMMobile.put("SENT", "Done");
+        activityMailStatusCRMToCRMMobile.put("DELIVERED", "Cancelled");
+
+    }
+
+    private   static Map<String, String> activityTypeCRMToCRMMobile = new HashMap<>();
 
     static {
         activityTypeCRMToCRMMobile.put("INF_EMAIL_OUT", "Email");
@@ -63,6 +72,33 @@ public class Mappings {
         activityTypeCRMMobileToCRM.put("Task", "INF_TASK");
     }
 
+
+    private  static HashBiMap<String, String> contactChannelsMappingCRMMobileToCRM = HashBiMap.create ();
+    static {
+        contactChannelsMappingCRMMobileToCRM.put("Linkedin", "CONTACT_LINKEDIN");
+        contactChannelsMappingCRMMobileToCRM.put("Skype", "CONTACT_SKYPE");
+        contactChannelsMappingCRMMobileToCRM.put("Phone", "PHONE_NUMBER");
+        contactChannelsMappingCRMMobileToCRM.put("Email", "EMAIL_ADDRESS");
+        contactChannelsMappingCRMMobileToCRM.put("Facebook", "CONTACT_FACEBOOK");
+        contactChannelsMappingCRMMobileToCRM.put("Twitter", "CONTACT_TWITTER");
+    }
+
+    private   static BiMap<String, String> opportunitySalesStageMappingCRMToCRMMobile = HashBiMap.create();
+
+    static {
+        opportunitySalesStageMappingCRMToCRMMobile.put("IDENITFY_DECISION_MAKERS", "IdenitfyDecisionMakers");
+        opportunitySalesStageMappingCRMToCRMMobile.put("KEY_BELIEF_ANALYSIS", "KeyBeliefAnalysis ");
+        opportunitySalesStageMappingCRMToCRMMobile.put("LEAD", "Lead");
+        opportunitySalesStageMappingCRMToCRMMobile.put("LOST", "Lost");
+        opportunitySalesStageMappingCRMToCRMMobile.put("NEEDS_ANALYSIS", "NeedsAnalysis");
+        opportunitySalesStageMappingCRMToCRMMobile.put("NEGOTIATION", "Negotiation");
+        opportunitySalesStageMappingCRMToCRMMobile.put("PROPOSAL", "Proposal");
+        opportunitySalesStageMappingCRMToCRMMobile.put("PROSPECTING", "Prospecting");
+        opportunitySalesStageMappingCRMToCRMMobile.put("QUALIFICATION", "Qualification");
+        opportunitySalesStageMappingCRMToCRMMobile.put("VALUE_PROPOSITION", "ValueProposition");
+        opportunitySalesStageMappingCRMToCRMMobile.put("WON", "Won");
+
+    }
 
     public static Map<String, String> getCompanyTypesMappingCRMToCRMMobile() {
         return accountTypesCRMToCRMMobile;
@@ -95,4 +131,31 @@ public class Mappings {
     public static Map<String, String> getActivityStatusMappingCRMToCRMMobile() {
         return activityStatusCRMToCRMMobile;
     }
+
+    public static Map<String, String> getActivityMailStatusMappingCRMMobileToCRM() {
+        return activityMailStatusCRMToCRMMobile.inverse();
+    }
+
+    public static Map<String, String> getActivityMailStatusMappingCRMToCRMMobile() {
+        return activityMailStatusCRMToCRMMobile;
+    }
+
+    public static Map<String, String> getContactChannelsMappingCRMMobileToCRM() {
+        return contactChannelsMappingCRMMobileToCRM;
+    }
+
+    public static Map<String, String> getContactChannelsMappingCRMToCRMMobile() {
+        return contactChannelsMappingCRMMobileToCRM.inverse();
+    }
+
+    public static Map<String, String> getOpportunitySalesStageMappingCRMToCRMMobile() {
+        return opportunitySalesStageMappingCRMToCRMMobile;
+    }
+
+    public static Map<String, String> getOpportunitySalesStageMappingCRMMobileToCRM() {
+        return opportunitySalesStageMappingCRMToCRMMobile.inverse();
+    }
+
+
+
 }

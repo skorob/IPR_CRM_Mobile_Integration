@@ -14,15 +14,7 @@ import java.util.*;
 @Component
 public class ContactCRMMessageToMobileConverter extends CRMMessageToMobileConverter<Contact> {
 
-    private  static Map<String, String> companyTypes = new HashMap<>();
-    static {
-        companyTypes.put("COMPETITOR", "Competitor");
-        companyTypes.put("PARTNER", "Partner");
-        companyTypes.put("CLIENT", "Client");
-        companyTypes.put("RESELLER", "Reseller");
-        companyTypes.put("PROSPECT", "Prospect");
-        companyTypes.put("OTHER", "Other");
-    }
+
 
 
 
@@ -63,7 +55,7 @@ public class ContactCRMMessageToMobileConverter extends CRMMessageToMobileConver
 
     @Override
     protected Map<String, String> getChannelsMapping() {
-        return ContactCRMMobileToCRMMessageConverter.channelsMapping.inverse();
+        return Mappings.getContactChannelsMappingCRMToCRMMobile();
     }
 
 

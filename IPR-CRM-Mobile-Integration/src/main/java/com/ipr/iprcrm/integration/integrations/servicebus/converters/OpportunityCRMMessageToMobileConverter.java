@@ -1,7 +1,5 @@
 package com.ipr.iprcrm.integration.integrations.servicebus.converters;
 
-import com.google.common.collect.BiMap;
-import com.google.common.collect.HashBiMap;
 import com.ipr.iprcrm.integration.integrations.servicebus.dto.*;
 import com.ipr.pa.policyclient.ws.crystal.schemas.Message;
 import com.ipr.pa.policyclient.ws.crystal.schemas.Property;
@@ -22,22 +20,7 @@ import java.util.Map;
 public class OpportunityCRMMessageToMobileConverter extends CRMMessageToMobileConverter<Opportunity> {
 
     public static final String XML_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ssX";
-    public   static BiMap<String, String> companyTypes = HashBiMap.create();
 
-    static {
-        companyTypes.put("IDENITFY_DECISION_MAKERS", "IdenitfyDecisionMakers");
-        companyTypes.put("KEY_BELIEF_ANALYSIS", "KeyBeliefAnalysis ");
-        companyTypes.put("LEAD", "Lead");
-        companyTypes.put("LOST", "Lost");
-        companyTypes.put("NEEDS_ANALYSIS", "NeedsAnalysis");
-        companyTypes.put("NEGOTIATION", "Negotiation");
-        companyTypes.put("PROPOSAL", "Proposal");
-        companyTypes.put("PROSPECTING", "Prospecting");
-        companyTypes.put("QUALIFICATION", "Qualification");
-        companyTypes.put("VALUE_PROPOSITION", "ValueProposition");
-        companyTypes.put("WON", "Won");
-
-    }
 
     public Opportunity convert(Message message) {
         Opportunity opportunity = new Opportunity();
@@ -71,7 +54,7 @@ public class OpportunityCRMMessageToMobileConverter extends CRMMessageToMobileCo
             e.printStackTrace();
         }
         opportunityData.Probability = NumberUtils.toDouble(getPropertyValue(message, "OPPTY_PROBABILITY"), 0);
-        opportunityData.SalesStage = companyTypes.get(getPropertyValue(message, "SALES_STAGE"));
+        opportunityData.SalesStage = Mappings.getOpportunitySalesStageMappingCRMToCRMMobile() .get(getPropertyValue(message, "SALES_STAGE"));
 
         opportunityData.Account = parseIdToRef(getPropertyValue(message, "INF_COMPANY"));
 

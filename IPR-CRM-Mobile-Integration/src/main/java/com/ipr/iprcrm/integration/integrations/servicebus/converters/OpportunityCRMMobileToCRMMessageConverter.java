@@ -17,7 +17,6 @@ import java.util.Map;
 @Component
 public class OpportunityCRMMobileToCRMMessageConverter extends CRMMobileToCRMMessageConverter <Opportunity> {
 
-    private  static Map<String, String> salesStages = OpportunityCRMMessageToMobileConverter.companyTypes.inverse();
 
 
 
@@ -78,7 +77,7 @@ public class OpportunityCRMMobileToCRMMessageConverter extends CRMMobileToCRMMes
 
         Property salesStage = of.createProperty();
         salesStage.setName("SALES_STAGE");
-        salesStage.setValue(salesStages.get(opportunityData.SalesStage));
+        salesStage.setValue(Mappings.getOpportunitySalesStageMappingCRMMobileToCRM().get(opportunityData.SalesStage));
         message.getPropertyList().getProperty().add(salesStage);
 
         if(opportunityData.Account!=null) {
