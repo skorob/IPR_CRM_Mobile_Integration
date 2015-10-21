@@ -27,19 +27,21 @@ public class CRMMobileService {
     public void send(String gson) throws Exception {
         try {
 
-
+            log.info("Open Connection ...");
             Connection connection = connectionFactory.createConnection();
             try {
+                log.info("Open Session ...");
                 Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
                 try {
 
                     Destination dest = new QueueImpl("in");
-
+                    log.info("Create  Producer ...");
                     MessageProducer producer = session.createProducer(dest);
-                    TextMessage message = session.createTextMessage();
+                    log.info("Create  Message ...");
+                    BytesMessage message = session.createBytesMessage();
+                    message.writeBytes(gson.getBytes());
 
-                    message.setText(gson);
-                    log.info("Sending message: " +gson);
+                    log.info("Sending message to CRMMobile AZURE Queue: " +gson);
                     producer.send(message);
                 } finally {
                     session.close();

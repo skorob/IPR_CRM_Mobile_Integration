@@ -10,6 +10,8 @@ import com.ipr.pa.policyclient.ws.crystal.schemas.entity.EntityListMessage;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.qpid.amqp_1_0.jms.BytesMessage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -37,7 +39,7 @@ public class OrderListener implements MessageListener {
     @Autowired
     LeadCRMMobileToCRMMessageConverter leadCRMMobileToCRMMessageConverter;
 
-    Log log = LogFactory.getLog(OrderListener.class);
+    Logger log = LoggerFactory.getLogger(OrderListener.class);
 
     @Autowired
     CRMService crmService;
@@ -104,7 +106,8 @@ public class OrderListener implements MessageListener {
 
             message.acknowledge();
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("Error occured while message is received from Azure Out Queue", e);
+            throw new RuntimeException(e);
         } finally {
         }
     }

@@ -1,32 +1,27 @@
 {
   "Header": {
-    "Id": "DF52FDEF-483C-42A9-8A31-1B7E25AC00A8",
-    "Timestamp": "2015-08-18T12:55:01.6050852+00:00",
+    "Id": "134331f3-0853-4a51-8b7c-f9a68a7bb878",
+    "Timestamp": "2015-09-07T09:01:32.440+00:00",
     "Source": "iprcrmmobile"
   },
   "Body": {
     "Data": [
       {
-        "FirstName": "Juris",
-        "LastName": "Terauds",
-        "Title": null,
-        "JobTitle": null,
+        "FirstName": "Thorin [Test Contact] 20150907_120120",
+        "LastName": "Moore wo #1",
+        "Title": "Dr.",
+        "JobTitle": "general worker",
         "IsPrimary": false,
-        "Channels": [
-          {
-            "Type": "Email",
-            "Value": "juris.terauds@ideaportriga.lv"
-          }
-        ],
+        "Channels": [],
         "Account": {
-          "Id": null,
-          "ExternalId": "A110"
+          "Id": "862e00d2-1c00-41ca-a033-184ba834a67d",
+          "ExternalId": null
         },
-        "__externalId": "JT001",
-        "__order": 1,
+        "__externalId": null,
+        "__order": null,
         "__type": "AccountContact",
-        "Id": null
+        "Id": "134331f3-0853-4a51-8b7c-f9a68a7bb878"
       }
-   ]
+    ]
   }
 }

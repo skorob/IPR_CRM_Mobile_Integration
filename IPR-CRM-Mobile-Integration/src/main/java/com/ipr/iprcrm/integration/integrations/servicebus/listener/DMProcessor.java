@@ -7,6 +7,8 @@ import com.ipr.iprcrm.integration.integrations.servicebus.dto.CRMMobileModel;
 import com.ipr.iprcrm.integration.integrations.servicebus.service.CRMMobileService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -21,7 +23,8 @@ import java.io.ByteArrayInputStream;
 @Component
 public class DMProcessor implements Processor {
 
-        Log log = LogFactory.getLog(DMProcessor.class);
+
+    Logger log = LoggerFactory.getLogger(DMProcessor.class);
 
     @Autowired
     AccountCRMMessageToMobileConverter accountCRMToMobileConverter;
@@ -45,7 +48,7 @@ public class DMProcessor implements Processor {
         public void processMessage(CrystalMessage message) {
             try {
 
-                log.info("Crystal!CRM_TO_MOBILE_INT_SERVICE. Message is received [ " + message.getPayload() + "]");
+                log.info("Crystal!CRM_TO_MOBILE_INT_SERVICE. Message is received QueryName ["+message.getQueryName()+"] [ " + message.getPayload() + "]");
                 JAXBContext jc = JAXBContext.newInstance(com.ipr.pa.policyclient.ws.crystal.schemas.Message.class);
 
                 Unmarshaller unmarshaller = jc.createUnmarshaller();
@@ -54,6 +57,7 @@ public class DMProcessor implements Processor {
                 com.ipr.pa.policyclient.ws.crystal.schemas.Message m = (com.ipr.pa.policyclient.ws.crystal.schemas.Message) unmarshaller.unmarshal(is);
 
                 String messageType = message.getQueryName();
+
 
                 String json = null;
                 CRMMobileModel crmMobileModel = null;
@@ -71,10 +75,12 @@ public class DMProcessor implements Processor {
                         crmMobileModel = activityCRMMessageToMobileConverter.convert(m);
                         break;
                 }
+
                 json = CRMMobileModelToJsonConverter.convert(crmMobileModel);
                 crmMobileService.send(json);
             } catch (Exception e) {
-                e.printStackTrace();
+                log.error("Error Was occured in DM", e);
+                throw new RuntimeException(e);
             }
         }
 

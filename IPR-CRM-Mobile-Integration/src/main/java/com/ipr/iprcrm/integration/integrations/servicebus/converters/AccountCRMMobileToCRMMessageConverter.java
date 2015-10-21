@@ -84,6 +84,14 @@ public class AccountCRMMobileToCRMMessageConverter  extends CRMMobileToCRMMessag
         entType.setValue("INF_COMPANY");
         message.getPropertyList().getProperty().add(entType);
 
+        if(ad.Contact!=null) {
+            Property contactRef = of.createProperty();
+            contactRef.setName("INF_CONTACT");
+            contactRef.setValue(createRefence(ad.Contact));
+            message.getPropertyList().getProperty().add(contactRef);
+        }
+
+
         assignChannels(ad, of, message);
 
         return message;

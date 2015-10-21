@@ -28,8 +28,10 @@ public class AccountCRMMessageToMobileConverter extends CRMMessageToMobileConver
         accountData.Description = getPropertyValue(message,"COMPANY_NOTES");
         accountData.Country = getPropertyValue(message, "PERS_ORIG_COUNTRY");
         accountData.Type = Mappings.getCompanyTypesMappingCRMToCRMMobile().get(getPropertyValue(message, "COMPANY_TYPE"));
-        accountData.Industry = getPropertyValue(message,"PERS_COM_INDUSTRY");
+        accountData.Industry = getPropertyValue(message, "PERS_COM_INDUSTRY");
         accountData.EmployeeCount = getPropertyValue(message,"COMPANY_EMPL_NUM");
+        accountData.Contact = parseIdToRef(getPropertyValue(message, "INF_CONTACT"));
+
 
         for(Property p : message.getPropertyList().getProperty()) {
             assignChannel(message, p.getName(), accountData);

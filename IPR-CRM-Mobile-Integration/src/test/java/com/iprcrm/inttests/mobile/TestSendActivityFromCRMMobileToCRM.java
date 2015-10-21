@@ -1,13 +1,13 @@
-package com.iprcrm.inttests;
+package com.iprcrm.inttests.mobile;
 
 import com.google.common.base.Charsets;
 import com.google.common.io.Resources;
 import com.ipr.iprcrm.integration.Application;
 import com.ipr.iprcrm.integration.integrations.servicebus.service.AzureConfiguration;
-import org.apache.log4j.Logger;
 import org.apache.qpid.amqp_1_0.jms.impl.QueueImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -16,9 +16,9 @@ import javax.jms.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
-public class TestSendLeadFromCRMMobileToCRM {
+public class TestSendActivityFromCRMMobileToCRM {
 
-	private static final Logger log = Logger.getLogger(TestSendLeadFromCRMMobileToCRM.class);
+	org.slf4j.Logger log = LoggerFactory.getLogger(TestSendActivityFromCRMMobileToCRM.class);
 
 	@Autowired
 	AzureConfiguration c;
@@ -39,8 +39,7 @@ public class TestSendLeadFromCRMMobileToCRM {
 					MessageProducer producer = session.createProducer(dest);
 					BytesMessage message = session.createBytesMessage();
 
-					message.writeBytes(Resources.toString(Resources.getResource("json/Publish-Lead.json"), Charsets.UTF_8).getBytes());
-					System.out.println("Sending message: " + message);
+					message.writeBytes(Resources.toString(Resources.getResource("json/Subscribe-Activity.json"), Charsets.UTF_8).getBytes());
 					producer.send(message);
 				} finally {
 					session.close();

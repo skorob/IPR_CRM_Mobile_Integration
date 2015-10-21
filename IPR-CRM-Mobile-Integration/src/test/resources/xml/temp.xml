@@ -1,1 +1,61 @@
-{"Header":{"Id":"47a6410b-83ae-406d-b0d5-c4a4ff3fb5e1","Timestamp":"2015-09-03T18:06:41.914+00:00","Source":"iprcrmmobile"},"Body":{"Data":[{"Subject":"azure2","Description":null,"Amount":300.0,"CloseDate":"2015-10-03T00:00:00.000+03:00","Probability":null,"SalesStage":"Lead","Account":{"Id":"75d30538-4439-4616-88d2-5be42ce2e91b","ExternalId":null},"Contacts":[{"Id":"7c998128-95b2-40ed-bb01-1d2249df05cd","ExternalId":null}],"__externalId":null,"__order":0,"__type":"Opportunity","Id":"7e489f6f-97f8-409d-95f7-49289a1cfc5f"},{"Subject":"test","Description":null,"PlannedDate":"2015-09-04T21:05:51.490+03:00","Type":"Task","Status":"Planned","Opportunity":{"Id":"7e489f6f-97f8-409d-95f7-49289a1cfc5f","ExternalId":null},"Contact":{"Id":"7c998128-95b2-40ed-bb01-1d2249df05cd","ExternalId":null},"Employee":null,"__externalId":null,"__order":1,"__type":"Activity","Id":"b646e6ea-f94c-4cde-b4eb-360b7907abdc"}]}
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<EntityListMessage xmlns="http://pa.ipr.com/policyclient/ws/crystal/schemas/entity">
+    <extCorrData/>
+    <EntityList>
+        <Entity>
+            <Property name="PERSON_FULL_NAME">blue</Property>
+            <Property name="COMPANY_NOTES"/>
+            <Property name="PERS_ORIG_COUNTRY"/>
+            <Property name="COMPANY_TYPE">OTHER</Property>
+            <Property name="PERS_COM_INDUSTRY"/>
+            <Property name="COMPANY_EMPL_NUM"/>
+            <Property name="CRM_ID"/>
+            <Property name="ORDER">0</Property>
+            <Property name="SYS_ENTITY_PK"/>
+            <Property name="ENTITY_TYPE">INF_COMPANY</Property>
+            <Property name="CORRELATION_ID">8d6e691f-cc84-4877-bb8b-b160efa30ec0</Property>
+        </Entity>
+        <Entity>
+            <Property name="CONTACT_FNAME">kate</Property>
+            <Property name="CONTACT_SURNAME">yellow</Property>
+            <Property name="CONTACT_HONORIFIC"/>
+            <Property name="CONTACT_JOB_TITLE"/>
+            <Property name="INF_COMPANY"/>
+            <Property name="CRM_ID"/>
+            <Property name="ORDER">1</Property>
+            <Property name="SYS_ENTITY_PK"/>
+            <Property name="ENTITY_TYPE">INF_CONTACT</Property>
+            <Property name="PHONE_NUMBER">6265765765</Property>
+            <Property name="CORRELATION_ID">30a54399-3da4-4ebf-9aec-f2717bea6b23</Property>
+        </Entity>
+        <Entity>
+            <Property name="OPPTY_NAME">blue</Property>
+            <Property name="OPPTY_NOTES"/>
+            <Property name="OPPTY_FORECAST_AMOUNT">412.0</Property>
+            <Property name="OPPTY_CLOSE_DATE">2015-10-04+03:00</Property>
+            <Property name="OPPTY_PROBABILITY">0.0</Property>
+            <Property name="SALES_STAGE">LEAD</Property>
+            <Property name="INF_COMPANY">8d6e691f-cc84-4877-bb8b-b160efa30ec0</Property>
+            <Property name="INF_CONTACT">30a54399-3da4-4ebf-9aec-f2717bea6b23</Property>
+            <Property name="ENTITY_TYPE">INF_OPPORTUNITY</Property>
+            <Property name="CRM_ID"/>
+            <Property name="ORDER">2</Property>
+            <Property name="SYS_ENTITY_PK"/>
+            <Property name="CORRELATION_ID">189906d6-79fa-429b-8c5a-ef30232ae689</Property>
+        </Entity>
+        <Entity>
+            <Property name="ACT_SUBJECT">yellow activity</Property>
+            <Property name="ACT_BODY"/>
+            <Property name="ACT_TARGET_DATE">2015-09-05+03:00</Property>
+            <Property name="ENTITY_TYPE">INF_TASK</Property>
+            <Property name="ACT_STATUS">PLANNED</Property>
+            <Property name="INF_OPPORTUNITY">189906d6-79fa-429b-8c5a-ef30232ae689</Property>
+            <Property name="INF_CONTACT">30a54399-3da4-4ebf-9aec-f2717bea6b23</Property>
+            <Property name="CRM_ID"/>
+            <Property name="ORDER">3</Property>
+            <Property name="SYS_ENTITY_PK"/>
+            <Property name="CORRELATION_ID">cd91eaf6-cf37-47a0-b1ba-1621edad6879</Property>
+        </Entity>
+    </EntityList>
+    <status xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+</EntityListMessage>

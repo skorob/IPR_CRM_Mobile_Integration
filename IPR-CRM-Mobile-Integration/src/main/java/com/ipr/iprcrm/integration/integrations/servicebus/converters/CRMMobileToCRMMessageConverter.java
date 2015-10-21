@@ -4,6 +4,7 @@ import com.ipr.iprcrm.integration.integrations.servicebus.dto.*;
 import com.ipr.pa.policyclient.ws.crystal.schemas.Message;
 import com.ipr.pa.policyclient.ws.crystal.schemas.ObjectFactory;
 import com.ipr.pa.policyclient.ws.crystal.schemas.Property;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.HashMap;
@@ -63,18 +64,20 @@ public abstract class CRMMobileToCRMMessageConverter <T extends  CRMMobileModel,
 
 
     protected void assignChannels(CRMMobileDataModel crmMobileDataModel, ObjectFactory of, Message message) {
-        for(Channel ch : crmMobileDataModel.channels) {
-            Property channel = of.createProperty();
-            String channelName = getChannelsMapping().get(ch.Type);
-            if(StringUtils.isNotEmpty(channelName)) {
-                channel.setValue(ch.Value);
-                channel.setName(channelName);
-                message.getPropertyList().getProperty().add(channel);
+        if(CollectionUtils.isNotEmpty(crmMobileDataModel.channels)) {
+            for (Channel ch : crmMobileDataModel.channels) {
+                Property channel = of.createProperty();
+                String channelName = getChannelsMapping().get(ch.Type);
+                if (StringUtils.isNotEmpty(channelName)) {
+                    channel.setValue(ch.Value);
+                    channel.setName(channelName);
+                    message.getPropertyList().getProperty().add(channel);
+                }
             }
         }
     }
 
     protected String createRefence(Reference reference) {
-        return reference.ExternalId+"|"+reference.Id;
+        return reference.ExternalId;
     }
 }

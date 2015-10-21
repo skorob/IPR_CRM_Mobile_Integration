@@ -14,5 +14,6 @@ public class AccountData extends CRMMobileDataModel {
     public String Type;
     public String Industry;
     public String EmployeeCount;
+    public Reference Contact;
 
 }
